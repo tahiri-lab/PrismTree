@@ -1,11 +1,11 @@
-<mxfile host="app.diagrams.net" modified="2023-12-28T20:12:50.787Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="9y5xCkoFoi55dnGYs3Fq" version="22.1.15" type="github" pages="9">
+<mxfile host="app.diagrams.net" modified="2023-12-28T21:40:01.117Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="IMt7RmolO6LY-_oFX0qL" version="22.1.15" type="github" pages="9">
   <diagram name="ISMB_v4" id="mT-pNBIYAox-Regu9mbi">
-    <mxGraphModel dx="2449" dy="2333" grid="0" gridSize="12" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="2449" dy="1933" grid="0" gridSize="12" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="Xr18Mc8zn3_XAK74HL_d-0" />
         <mxCell id="Xr18Mc8zn3_XAK74HL_d-1" parent="Xr18Mc8zn3_XAK74HL_d-0" />
         <mxCell id="srvk1otjPVXdGUh0yeC2-0" value="" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;dashPattern=12 12;" parent="Xr18Mc8zn3_XAK74HL_d-1" vertex="1">
-          <mxGeometry x="-142" y="-847" width="2683" height="1668" as="geometry" />
+          <mxGeometry x="-162" y="-784" width="2683" height="1668" as="geometry" />
         </mxCell>
         <mxCell id="Xr18Mc8zn3_XAK74HL_d-2" value="" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;dashed=1;dashPattern=8 8;" parent="Xr18Mc8zn3_XAK74HL_d-1" vertex="1">
           <mxGeometry x="131" y="103" width="630" height="319" as="geometry" />
