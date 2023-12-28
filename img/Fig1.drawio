@@ -1,5 +1,5 @@
-<mxfile host="app.diagrams.net" modified="2023-12-28T23:52:13.690Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="2iPvy3bHD-2EQdIiSIPl" version="22.1.15" type="github" pages="10">
-  <diagram name="Copy of ISMB_v5" id="dm570o2IdbXQo_F7wzL9">
+<mxfile host="app.diagrams.net" modified="2023-12-28T23:52:47.676Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="JQYAgYkVz8CldB1aTLz6" version="22.1.15" type="github" pages="10">
+  <diagram name="ISMB_v5" id="dm570o2IdbXQo_F7wzL9">
     <mxGraphModel dx="4097" dy="2800" grid="0" gridSize="12" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="MblFhpAjNzooOd2SfngR-0" />
@@ -1047,7 +1047,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="ISMB_v4" id="mT-pNBIYAox-Regu9mbi">
-    <mxGraphModel grid="0" page="0" gridSize="12" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="3187" dy="2356" grid="0" gridSize="12" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="Xr18Mc8zn3_XAK74HL_d-0" />
         <mxCell id="Xr18Mc8zn3_XAK74HL_d-1" parent="Xr18Mc8zn3_XAK74HL_d-0" />
