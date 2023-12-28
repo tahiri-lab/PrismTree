@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-12-28T22:54:21.894Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="eBYdz-3mArtCLm9rWQec" version="22.1.15" type="github" pages="9">
+<mxfile host="app.diagrams.net" modified="2023-12-28T23:05:24.202Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="hwe7eST4Ndcmxf62jBpU" version="22.1.15" type="github" pages="9">
   <diagram name="ISMB_v4" id="mT-pNBIYAox-Regu9mbi">
-    <mxGraphModel dx="1912" dy="1857" grid="0" gridSize="12" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="2049" dy="1933" grid="0" gridSize="12" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="Xr18Mc8zn3_XAK74HL_d-0" />
         <mxCell id="Xr18Mc8zn3_XAK74HL_d-1" parent="Xr18Mc8zn3_XAK74HL_d-0" />
@@ -363,19 +363,19 @@
             <mxPoint x="572.174006908463" y="17.902010050251256" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Xr18Mc8zn3_XAK74HL_d-81" value="(a)&lt;br&gt;Input Trees" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=-90;" parent="Xr18Mc8zn3_XAK74HL_d-1" vertex="1">
+        <mxCell id="Xr18Mc8zn3_XAK74HL_d-81" value="Input Trees" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=-90;" parent="Xr18Mc8zn3_XAK74HL_d-1" vertex="1">
           <mxGeometry x="-26" y="-630.5" width="213" height="94" as="geometry" />
         </mxCell>
-        <mxCell id="Xr18Mc8zn3_XAK74HL_d-82" value="(b) &lt;br&gt;Super Graph" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=-90;" parent="Xr18Mc8zn3_XAK74HL_d-1" vertex="1">
+        <mxCell id="Xr18Mc8zn3_XAK74HL_d-82" value="Super Graph" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=-90;" parent="Xr18Mc8zn3_XAK74HL_d-1" vertex="1">
           <mxGeometry x="-26" y="-363" width="213" height="94" as="geometry" />
         </mxCell>
-        <mxCell id="Xr18Mc8zn3_XAK74HL_d-83" value="(c) &lt;br&gt;Matrix of Super Graph" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=-90;" parent="Xr18Mc8zn3_XAK74HL_d-1" vertex="1">
+        <mxCell id="Xr18Mc8zn3_XAK74HL_d-83" value="&amp;nbsp; &amp;nbsp;Matrix of Super Graph" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=-90;" parent="Xr18Mc8zn3_XAK74HL_d-1" vertex="1">
           <mxGeometry x="-26" y="-71.5" width="213" height="94" as="geometry" />
         </mxCell>
-        <mxCell id="Xr18Mc8zn3_XAK74HL_d-84" value="(d) &lt;br&gt;Minimum Spanning Tree (MST)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=-90;" parent="Xr18Mc8zn3_XAK74HL_d-1" vertex="1">
+        <mxCell id="Xr18Mc8zn3_XAK74HL_d-84" value="&amp;nbsp; &amp;nbsp;Minimum Spanning Tree (MST)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=-90;" parent="Xr18Mc8zn3_XAK74HL_d-1" vertex="1">
           <mxGeometry x="-28" y="230.5" width="213" height="94" as="geometry" />
         </mxCell>
-        <mxCell id="Xr18Mc8zn3_XAK74HL_d-85" value="(e) &lt;br&gt;Consensus Tree with topological and branch length information" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=-90;" parent="Xr18Mc8zn3_XAK74HL_d-1" vertex="1">
+        <mxCell id="Xr18Mc8zn3_XAK74HL_d-85" value="&amp;nbsp; &amp;nbsp; &amp;nbsp;Consensus Tree with topological and branch length information" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=-90;" parent="Xr18Mc8zn3_XAK74HL_d-1" vertex="1">
           <mxGeometry x="-28" y="539.5" width="213" height="94" as="geometry" />
         </mxCell>
         <mxCell id="Xr18Mc8zn3_XAK74HL_d-86" value="" style="group" parent="Xr18Mc8zn3_XAK74HL_d-1" vertex="1" connectable="0">
@@ -810,6 +810,21 @@
             <mxPoint x="880.9183673469388" y="-538.7102803738319" as="sourcePoint" />
             <mxPoint x="861.8163265306123" y="-558.6168224299066" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="juIdRx5Qf00qarCUh3xp-7" value="&lt;span&gt;a&lt;br&gt;&lt;/span&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#bdbcbc;rotation=-90;fontStyle=0;verticalAlign=bottom;" vertex="1" parent="Xr18Mc8zn3_XAK74HL_d-1">
+          <mxGeometry x="70.00284974093265" y="-529.8984422110552" width="25.897343862167983" height="25.897343862167983" as="geometry" />
+        </mxCell>
+        <mxCell id="juIdRx5Qf00qarCUh3xp-8" value="&lt;span&gt;b&lt;br&gt;&lt;/span&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#bdbcbc;rotation=-90;fontStyle=0;verticalAlign=bottom;" vertex="1" parent="Xr18Mc8zn3_XAK74HL_d-1">
+          <mxGeometry x="67.55284974093264" y="-252.89844221105523" width="25.897343862167983" height="25.897343862167983" as="geometry" />
+        </mxCell>
+        <mxCell id="juIdRx5Qf00qarCUh3xp-9" value="&lt;span&gt;c&lt;br&gt;&lt;/span&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#bdbcbc;rotation=-90;fontStyle=0;verticalAlign=bottom;align=center;" vertex="1" parent="Xr18Mc8zn3_XAK74HL_d-1">
+          <mxGeometry x="57.002849740932646" y="42.00155778894477" width="25.897343862167983" height="25.897343862167983" as="geometry" />
+        </mxCell>
+        <mxCell id="juIdRx5Qf00qarCUh3xp-10" value="&lt;span&gt;d&lt;br&gt;&lt;/span&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#bdbcbc;rotation=-90;verticalAlign=bottom;fontStyle=0" vertex="1" parent="Xr18Mc8zn3_XAK74HL_d-1">
+          <mxGeometry x="55.002849740932646" y="356.00155778894475" width="25.897343862167983" height="25.897343862167983" as="geometry" />
+        </mxCell>
+        <mxCell id="juIdRx5Qf00qarCUh3xp-11" value="&lt;span&gt;e&lt;br&gt;&lt;/span&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#bdbcbc;rotation=-90;fontStyle=0;align=center;verticalAlign=bottom;" vertex="1" parent="Xr18Mc8zn3_XAK74HL_d-1">
+          <mxGeometry x="33.002849740932646" y="648.0015577889448" width="25.897343862167983" height="25.897343862167983" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
