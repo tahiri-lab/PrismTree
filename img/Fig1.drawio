@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-12-28T23:47:29.896Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="s-IclbRUI58uSvgXmy9O" version="22.1.15" type="github" pages="10">
+<mxfile host="app.diagrams.net" modified="2023-12-28T23:47:49.309Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="KozGOWAQ9XT4tJm2YJz6" version="22.1.15" type="github" pages="10">
   <diagram name="Copy of ISMB_v5" id="dm570o2IdbXQo_F7wzL9">
     <mxGraphModel dx="531" dy="1059" grid="0" gridSize="12" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -1386,10 +1386,10 @@
           <mxGeometry x="-26" y="-71.5" width="213" height="94" as="geometry" />
         </mxCell>
         <mxCell id="Xr18Mc8zn3_XAK74HL_d-84" value="&amp;nbsp; &amp;nbsp;Minimum Spanning Tree (MST)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=-90;" parent="Xr18Mc8zn3_XAK74HL_d-1" vertex="1">
-          <mxGeometry x="-28" y="230.5" width="213" height="94" as="geometry" />
+          <mxGeometry x="-26" y="230.5" width="213" height="94" as="geometry" />
         </mxCell>
         <mxCell id="Xr18Mc8zn3_XAK74HL_d-85" value="&amp;nbsp; &amp;nbsp; &amp;nbsp;Consensus Tree with topological and branch length information" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=-90;" parent="Xr18Mc8zn3_XAK74HL_d-1" vertex="1">
-          <mxGeometry x="-28" y="539.5" width="213" height="94" as="geometry" />
+          <mxGeometry x="-26" y="539.5" width="213" height="94" as="geometry" />
         </mxCell>
         <mxCell id="Xr18Mc8zn3_XAK74HL_d-86" value="" style="group" parent="Xr18Mc8zn3_XAK74HL_d-1" vertex="1" connectable="0">
           <mxGeometry x="358" y="520" width="168.5" height="147" as="geometry" />
