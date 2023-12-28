@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-12-28T20:10:49.800Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="C-5bZrgMJWi80l5L7yYj" version="22.1.15" type="github" pages="9">
+<mxfile host="app.diagrams.net" modified="2023-12-28T20:11:06.309Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="NO8NLq0ba0MqqzGjGUoE" version="22.1.15" type="github" pages="9">
   <diagram name="ISMB_v4" id="mT-pNBIYAox-Regu9mbi">
     <mxGraphModel dx="1219" dy="1653" grid="0" gridSize="12" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -724,7 +724,7 @@
         <mxCell id="srvk1otjPVXdGUh0yeC2-6" value="" style="endArrow=classic;html=1;rounded=0;" parent="Xr18Mc8zn3_XAK74HL_d-1" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="1040" y="-516" as="sourcePoint" />
-            <mxPoint x="1043" y="-410" as="targetPoint" />
+            <mxPoint x="1040" y="-408" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="srvk1otjPVXdGUh0yeC2-7" value="Random deletion" style="edgeLabel;resizable=0;html=1;align=center;verticalAlign=middle;" parent="srvk1otjPVXdGUh0yeC2-6" connectable="0" vertex="1">
