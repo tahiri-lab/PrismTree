@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-12-29T08:34:33.367Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="Jh5Qwyh-z_nV4pMBQ25V" version="22.1.15" type="github" pages="14">
+<mxfile host="app.diagrams.net" modified="2023-12-29T08:35:42.325Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="Kom7XslOSis5pE6CLinR" version="22.1.15" type="github" pages="14">
   <diagram name="ISMB_v8 (option 1)" id="yPXA2_DMO2Rmyhf01ezQ">
     <mxGraphModel dx="2607" dy="2473" grid="0" gridSize="12" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -1015,7 +1015,7 @@
             <mxPoint x="1446.93" y="-720" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="pouq63PfMPyhmb24Z2qB-226" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;Calculate &lt;b style=&quot;&quot;&gt;RF distance&lt;/b&gt; and &lt;b style=&quot;&quot;&gt;triplet distance&lt;/b&gt; between the output consensus tree and input trees&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;dashPattern=12 12;fontSize=15;" parent="pouq63PfMPyhmb24Z2qB-1" vertex="1">
+        <mxCell id="pouq63PfMPyhmb24Z2qB-226" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;&amp;nbsp; &amp;nbsp; Calculate &lt;b style=&quot;font-size: 20px;&quot;&gt;Robinson-Foulds distance&lt;/b&gt; and &lt;b style=&quot;font-size: 20px;&quot;&gt;triplet distance&lt;/b&gt; between the output consensus tree and input trees&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;dashPattern=12 12;fontSize=20;" parent="pouq63PfMPyhmb24Z2qB-1" vertex="1">
           <mxGeometry x="556" y="768" width="621" height="213" as="geometry" />
         </mxCell>
         <mxCell id="pouq63PfMPyhmb24Z2qB-227" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.518;entryY=-0.001;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.522;exitY=1.001;exitDx=0;exitDy=0;exitPerimeter=0;" parent="pouq63PfMPyhmb24Z2qB-1" edge="1">
