@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-12-29T02:44:18.965Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:120.0) Gecko/20100101 Firefox/120.0" etag="j3qnI_1rD60Ajt408MUJ" version="22.1.15" type="github" pages="11">
+<mxfile host="app.diagrams.net" modified="2023-12-29T03:11:31.297Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:120.0) Gecko/20100101 Firefox/120.0" etag="Z3G9pM4_HYRBi8lJhW0B" version="22.1.15" type="github" pages="11">
   <diagram name="ISMB_v6" id="BLiNWMubdjY7Z8xh7rif">
-    <mxGraphModel dx="954" dy="1327" grid="0" gridSize="12" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1735" dy="1758" grid="0" gridSize="12" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="IiSBxv_JCen92hTT2_8x-0" />
         <mxCell id="IiSBxv_JCen92hTT2_8x-1" parent="IiSBxv_JCen92hTT2_8x-0" />
@@ -363,19 +363,19 @@
             <mxPoint x="572.174006908463" y="17.902010050251256" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="IiSBxv_JCen92hTT2_8x-81" value="Input Trees" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=-90;" vertex="1" parent="IiSBxv_JCen92hTT2_8x-1">
+        <mxCell id="IiSBxv_JCen92hTT2_8x-81" value="Input trees" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=-90;" vertex="1" parent="IiSBxv_JCen92hTT2_8x-1">
           <mxGeometry x="-26" y="-630.5" width="213" height="94" as="geometry" />
         </mxCell>
-        <mxCell id="IiSBxv_JCen92hTT2_8x-82" value="Super Graph" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=-90;" vertex="1" parent="IiSBxv_JCen92hTT2_8x-1">
+        <mxCell id="IiSBxv_JCen92hTT2_8x-82" value="Super graph" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=-90;" vertex="1" parent="IiSBxv_JCen92hTT2_8x-1">
           <mxGeometry x="-26" y="-363" width="213" height="94" as="geometry" />
         </mxCell>
-        <mxCell id="IiSBxv_JCen92hTT2_8x-83" value="&amp;nbsp; &amp;nbsp;Matrix of Super Graph" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=-90;" vertex="1" parent="IiSBxv_JCen92hTT2_8x-1">
+        <mxCell id="IiSBxv_JCen92hTT2_8x-83" value="&amp;nbsp; &amp;nbsp;&amp;nbsp; Matrix of super graph" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=-90;" vertex="1" parent="IiSBxv_JCen92hTT2_8x-1">
           <mxGeometry x="-26" y="-71.5" width="213" height="94" as="geometry" />
         </mxCell>
-        <mxCell id="IiSBxv_JCen92hTT2_8x-84" value="&amp;nbsp; &amp;nbsp;Minimum Spanning Tree (MST)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=-90;" vertex="1" parent="IiSBxv_JCen92hTT2_8x-1">
+        <mxCell id="IiSBxv_JCen92hTT2_8x-84" value="&amp;nbsp; &amp;nbsp; Minimum spanning tree (MST)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=-90;" vertex="1" parent="IiSBxv_JCen92hTT2_8x-1">
           <mxGeometry x="-28" y="230.5" width="213" height="94" as="geometry" />
         </mxCell>
-        <mxCell id="IiSBxv_JCen92hTT2_8x-85" value="&amp;nbsp; &amp;nbsp; &amp;nbsp;Consensus Tree with topological and branch length information" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=-90;" vertex="1" parent="IiSBxv_JCen92hTT2_8x-1">
+        <mxCell id="IiSBxv_JCen92hTT2_8x-85" value="&amp;nbsp; &amp;nbsp; &amp;nbsp;Consensus tree with topological and branch length information" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=-90;" vertex="1" parent="IiSBxv_JCen92hTT2_8x-1">
           <mxGeometry x="-28" y="539.5" width="213" height="94" as="geometry" />
         </mxCell>
         <mxCell id="IiSBxv_JCen92hTT2_8x-86" value="" style="group" vertex="1" connectable="0" parent="IiSBxv_JCen92hTT2_8x-1">
@@ -597,13 +597,13 @@
           <mxGeometry x="67.55284974093264" y="-252.89844221105523" width="25.897343862167983" height="25.897343862167983" as="geometry" />
         </mxCell>
         <mxCell id="IiSBxv_JCen92hTT2_8x-131" value="&lt;span&gt;c&lt;br&gt;&lt;/span&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#bdbcbc;rotation=-90;fontStyle=0;verticalAlign=bottom;align=center;" vertex="1" parent="IiSBxv_JCen92hTT2_8x-1">
-          <mxGeometry x="57.002849740932646" y="42.00155778894477" width="25.897343862167983" height="25.897343862167983" as="geometry" />
+          <mxGeometry x="55.002849740932646" y="37.00155778894477" width="25.897343862167983" height="25.897343862167983" as="geometry" />
         </mxCell>
         <mxCell id="IiSBxv_JCen92hTT2_8x-132" value="&lt;span&gt;d&lt;br&gt;&lt;/span&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#bdbcbc;rotation=-90;verticalAlign=bottom;fontStyle=0" vertex="1" parent="IiSBxv_JCen92hTT2_8x-1">
           <mxGeometry x="55.002849740932646" y="356.00155778894475" width="25.897343862167983" height="25.897343862167983" as="geometry" />
         </mxCell>
         <mxCell id="IiSBxv_JCen92hTT2_8x-133" value="&lt;span&gt;e&lt;br&gt;&lt;/span&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#bdbcbc;rotation=-90;fontStyle=0;align=center;verticalAlign=bottom;" vertex="1" parent="IiSBxv_JCen92hTT2_8x-1">
-          <mxGeometry x="33.002849740932646" y="648.0015577889448" width="25.897343862167983" height="25.897343862167983" as="geometry" />
+          <mxGeometry x="41.652849740932645" y="664.0015577889448" width="25.897343862167983" height="25.897343862167983" as="geometry" />
         </mxCell>
         <mxCell id="IiSBxv_JCen92hTT2_8x-134" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#CCCCCC;" vertex="1" parent="IiSBxv_JCen92hTT2_8x-1">
           <mxGeometry x="251" y="-412" width="40" height="40" as="geometry" />
