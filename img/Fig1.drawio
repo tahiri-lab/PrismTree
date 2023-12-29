@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-12-29T18:31:34.681Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="dbV7ziImavEUSWMYxq8_" version="22.1.15" type="github" pages="15">
+<mxfile host="app.diagrams.net" modified="2023-12-29T18:32:24.137Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="7cWqnfqskpqMKdl8XRhK" version="22.1.15" type="github" pages="15">
   <diagram name="ISMB_v10" id="J5uVJzJBo3IPR0hVFz9q">
-    <mxGraphModel dx="3585" dy="2783" grid="0" gridSize="12" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1195" dy="1461" grid="0" gridSize="12" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="qIHVnb8-SGCp3eqK6Bsq-0" />
         <mxCell id="qIHVnb8-SGCp3eqK6Bsq-1" parent="qIHVnb8-SGCp3eqK6Bsq-0" />
@@ -600,10 +600,10 @@
           <mxGeometry x="591" y="-267" width="40" height="40" as="geometry" />
         </mxCell>
         <mxCell id="qIHVnb8-SGCp3eqK6Bsq-140" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;" parent="qIHVnb8-SGCp3eqK6Bsq-1" vertex="1">
-          <mxGeometry x="174" y="-340" width="40" height="40" as="geometry" />
+          <mxGeometry x="177.5" y="-340" width="40" height="40" as="geometry" />
         </mxCell>
         <mxCell id="qIHVnb8-SGCp3eqK6Bsq-141" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;" parent="qIHVnb8-SGCp3eqK6Bsq-1" vertex="1">
-          <mxGeometry x="684" y="-339.5" width="40" height="40" as="geometry" />
+          <mxGeometry x="674" y="-340" width="40" height="40" as="geometry" />
         </mxCell>
         <mxCell id="qIHVnb8-SGCp3eqK6Bsq-142" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#CCCCCC;" parent="qIHVnb8-SGCp3eqK6Bsq-1" vertex="1">
           <mxGeometry x="510" y="-340" width="40" height="40" as="geometry" />
