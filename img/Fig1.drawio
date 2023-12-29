@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-12-29T03:22:29.798Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:120.0) Gecko/20100101 Firefox/120.0" etag="RYLatgeImmGb6Y4N27JH" version="22.1.15" type="github" pages="11">
+<mxfile host="app.diagrams.net" modified="2023-12-29T03:26:47.136Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:120.0) Gecko/20100101 Firefox/120.0" etag="C0u3c6vC24F8vrSYt7bg" version="22.1.15" type="github" pages="11">
   <diagram name="ISMB_v6" id="BLiNWMubdjY7Z8xh7rif">
     <mxGraphModel dx="2120" dy="1971" grid="0" gridSize="12" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -1028,7 +1028,7 @@
             <mxPoint x="945" y="-318" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="IiSBxv_JCen92hTT2_8x-226" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;Calculate &lt;b style=&quot;&quot;&gt;RF distance&lt;/b&gt; and &lt;b style=&quot;&quot;&gt;Triplet distance&lt;/b&gt; between the output Consensus Tree and Input Trees&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;dashPattern=12 12;fontSize=15;" vertex="1" parent="IiSBxv_JCen92hTT2_8x-1">
+        <mxCell id="IiSBxv_JCen92hTT2_8x-226" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;Calculate &lt;b style=&quot;&quot;&gt;RF distance&lt;/b&gt; and &lt;b style=&quot;&quot;&gt;triplet distance&lt;/b&gt; between the output consensus tree and input trees&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;dashPattern=12 12;fontSize=15;" vertex="1" parent="IiSBxv_JCen92hTT2_8x-1">
           <mxGeometry x="850" y="480" width="789" height="213" as="geometry" />
         </mxCell>
         <mxCell id="IiSBxv_JCen92hTT2_8x-227" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="IiSBxv_JCen92hTT2_8x-1" target="IiSBxv_JCen92hTT2_8x-226">
