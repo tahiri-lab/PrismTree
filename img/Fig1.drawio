@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-12-30T16:35:39.210Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="mybxsddognSF_7EwshJL" version="22.1.15" type="github" pages="15">
+<mxfile host="app.diagrams.net" modified="2023-12-30T16:36:12.771Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="j4Afrdx9X8IzgDZouuFb" version="22.1.15" type="github" pages="15">
   <diagram name="ISMB_v10" id="J5uVJzJBo3IPR0hVFz9q">
     <mxGraphModel dx="3585" dy="2783" grid="0" gridSize="12" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -2087,13 +2087,13 @@
         <mxCell id="pouq63PfMPyhmb24Z2qB-233" value="Quantitative dataset design" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=90;" parent="pouq63PfMPyhmb24Z2qB-1" vertex="1">
           <mxGeometry x="1345.23" y="-813.75" width="550.41" height="94" as="geometry" />
         </mxCell>
-        <mxCell id="pouq63PfMPyhmb24Z2qB-234" value="&lt;span&gt;f&lt;br&gt;&lt;/span&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#bdbcbc;rotation=90;fontStyle=0;verticalAlign=bottom;direction=south;" parent="pouq63PfMPyhmb24Z2qB-1" vertex="1">
+        <mxCell id="pouq63PfMPyhmb24Z2qB-234" value="&lt;span&gt;g&lt;br&gt;&lt;/span&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#bdbcbc;rotation=90;fontStyle=0;verticalAlign=bottom;direction=south;" parent="pouq63PfMPyhmb24Z2qB-1" vertex="1">
           <mxGeometry x="1607.4828497409326" y="-931.9984422110551" width="25.897343862167983" height="25.897343862167983" as="geometry" />
         </mxCell>
         <mxCell id="BkASrckZ6Q5GBGH_sqSq-0" value="Evaluation of consensus tree" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=-90;" parent="pouq63PfMPyhmb24Z2qB-1" vertex="1">
           <mxGeometry x="391" y="824" width="213" height="94" as="geometry" />
         </mxCell>
-        <mxCell id="BkASrckZ6Q5GBGH_sqSq-1" value="&lt;span&gt;e&lt;br&gt;&lt;/span&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#bdbcbc;rotation=-90;fontStyle=0;align=center;verticalAlign=bottom;" parent="pouq63PfMPyhmb24Z2qB-1" vertex="1">
+        <mxCell id="BkASrckZ6Q5GBGH_sqSq-1" value="&lt;span&gt;f&lt;br&gt;&lt;/span&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#bdbcbc;rotation=-90;fontStyle=0;align=center;verticalAlign=bottom;" parent="pouq63PfMPyhmb24Z2qB-1" vertex="1">
           <mxGeometry x="474.0028497409327" y="935.0015577889448" width="25.897343862167983" height="25.897343862167983" as="geometry" />
         </mxCell>
         <mxCell id="BkASrckZ6Q5GBGH_sqSq-3" value="" style="endArrow=classic;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;entryX=0.118;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.181;exitY=1.003;exitDx=0;exitDy=0;exitPerimeter=0;" parent="pouq63PfMPyhmb24Z2qB-1" source="pouq63PfMPyhmb24Z2qB-8" target="pouq63PfMPyhmb24Z2qB-226" edge="1">
@@ -2121,7 +2121,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="ISMB_v9 (option 2)" id="oA7IYfFxfsxdXyhtWZl9">
-    <mxGraphModel dx="2449" dy="2333" grid="0" gridSize="12" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="3268" dy="2786" grid="0" gridSize="12" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="TGRJ1eLJXGaU8J3P9bgI-0" />
         <mxCell id="TGRJ1eLJXGaU8J3P9bgI-1" parent="TGRJ1eLJXGaU8J3P9bgI-0" />
