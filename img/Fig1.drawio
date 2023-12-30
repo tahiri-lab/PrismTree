@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-12-30T22:35:55.149Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="di-dgIstFGz-HxqRIBWb" version="22.1.16" type="github" pages="15">
+<mxfile host="app.diagrams.net" modified="2023-12-30T22:37:51.102Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="NqVf24VnWPfRJ8vE9J9H" version="22.1.16" type="github" pages="15">
   <diagram name="ISMB_v10" id="J5uVJzJBo3IPR0hVFz9q">
     <mxGraphModel dx="1434" dy="1500" grid="0" gridSize="12" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -2121,7 +2121,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="ISMB_v9 (option 2)" id="oA7IYfFxfsxdXyhtWZl9">
-    <mxGraphModel dx="1219" dy="1600" grid="0" gridSize="12" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="7570" dy="4700" grid="0" gridSize="12" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="TGRJ1eLJXGaU8J3P9bgI-0" />
         <mxCell id="TGRJ1eLJXGaU8J3P9bgI-1" parent="TGRJ1eLJXGaU8J3P9bgI-0" />
@@ -2605,12 +2605,6 @@
               <mxPoint x="1501" y="545.5049999999999" />
             </Array>
           </mxGeometry>
-        </mxCell>
-        <mxCell id="TGRJ1eLJXGaU8J3P9bgI-13" value="" style="line;strokeWidth=2;direction=south;html=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;rotation=-270;" parent="TGRJ1eLJXGaU8J3P9bgI-1" vertex="1">
-          <mxGeometry x="100" y="655.5049999999999" height="160" as="geometry" />
-        </mxCell>
-        <mxCell id="TGRJ1eLJXGaU8J3P9bgI-14" value="" style="line;strokeWidth=2;direction=south;html=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;rotation=-270;" parent="TGRJ1eLJXGaU8J3P9bgI-1" vertex="1">
-          <mxGeometry x="88" y="667.5049999999999" height="160" as="geometry" />
         </mxCell>
         <mxCell id="TGRJ1eLJXGaU8J3P9bgI-10" value="" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;dashed=1;dashPattern=8 8;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;rotation=0;" parent="TGRJ1eLJXGaU8J3P9bgI-1" vertex="1">
           <mxGeometry x="-383" y="-127" width="738" height="289" as="geometry" />
