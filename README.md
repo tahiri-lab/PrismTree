@@ -12,7 +12,7 @@ These instructions will get you a copy of the `PrimConsTree` project up and runn
 
 Before you begin, ensure you have met the following requirements:
 
-* You have installed the latest version of [name any required software here]
+* You have installed the latest version of required software (see requierements.txt).
 * You have a [Windows/Linux/Mac] machine. State if the software works on any other OS.
 
 ### Installing `PrimConsTree`
