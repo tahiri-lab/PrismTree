@@ -45,4 +45,4 @@ If you want to contact me you can reach me at `<Nadia.Tahiri@USherbrooke.ca>`.
 
 ## License
 
-This project uses the following license: [<license_name>](<link>).
+This project uses the following license: [MIT license](https://github.com/tahiri-lab/PrimConsTree?tab=MIT-1-ov-file#readme).
