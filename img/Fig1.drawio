@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2024-05-22T18:22:59.138Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36" etag="N-s8BlTJ4WmozA-8y4yY" version="24.4.6" type="github" pages="19">
+<mxfile host="app.diagrams.net" modified="2024-05-22T18:24:39.389Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36" etag="UpBm1GMUNFpUiCaLc8jt" version="24.4.6" type="github" pages="19">
   <diagram name="WABI v3" id="OITo5iYr8bYLAekr8J6A">
-    <mxGraphModel dx="2582" dy="2131" grid="0" gridSize="12" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="2185" dy="1926" grid="0" gridSize="12" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="01Di6Efc7gkagQs7AlDW-0" />
         <mxCell id="01Di6Efc7gkagQs7AlDW-1" parent="01Di6Efc7gkagQs7AlDW-0" />
@@ -215,10 +215,10 @@
           <mxGeometry x="1031" y="-11.995000000000118" width="25.897343862167983" height="25.897343862167983" as="geometry" />
         </mxCell>
         <mxCell id="01Di6Efc7gkagQs7AlDW-108" value="&amp;nbsp; &amp;nbsp; &amp;nbsp;Consensus tree with topological and branch length information" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=-360;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" parent="01Di6Efc7gkagQs7AlDW-1" vertex="1">
-          <mxGeometry x="1341.5" y="-12" width="242.5" height="96" as="geometry" />
+          <mxGeometry x="1345" y="-12" width="242" height="96" as="geometry" />
         </mxCell>
         <mxCell id="01Di6Efc7gkagQs7AlDW-109" value="&lt;span&gt;e&lt;br&gt;&lt;/span&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#bdbcbc;rotation=-360;fontStyle=0;align=center;verticalAlign=bottom;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" parent="01Di6Efc7gkagQs7AlDW-1" vertex="1">
-          <mxGeometry x="1341.5" y="-11.995000000000118" width="25.897343862167983" height="25.897343862167983" as="geometry" />
+          <mxGeometry x="1345" y="-11.995000000000118" width="25.897343862167983" height="25.897343862167983" as="geometry" />
         </mxCell>
         <mxCell id="01Di6Efc7gkagQs7AlDW-172" value="" style="group" parent="01Di6Efc7gkagQs7AlDW-1" vertex="1" connectable="0">
           <mxGeometry x="139.9" y="-201.78500000000014" width="161.58111988513997" height="136.58111988513997" as="geometry" />
