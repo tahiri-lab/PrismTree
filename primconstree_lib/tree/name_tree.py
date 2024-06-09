@@ -1,21 +1,6 @@
 from ete3 import Tree
 
 
-def read_tree(input_file: str) -> Tree:
-    """Read the tree from the input file in Newick format using the ete3 library.
-
-    Args:
-        input_file (str): Path to the input file.
-
-    Returns:
-        Tree: The tree object.
-    """
-    with open(input_file, "r") as file:
-        # Read the tree from the file
-        tree = Tree(file.readline().strip(), format=1)
-    return tree
-
-
 class TreeStructure:
     def __init__(self, tree: Tree):
         self.tree = tree
@@ -76,15 +61,3 @@ class TreeStructure:
 
         return internal_nodes
 
-
-# Test the TreeStructure class:
-input_file = (
-    r"C:\Users\harsh\s\PrimConsTree\PrimConsTree\datasets\simulated\Trex_trees20.txt"
-)
-
-
-input_tree = read_tree(input_file)
-tree_structure = TreeStructure(input_tree)
-print(tree_structure.leaf_nodes)
-print(tree_structure.internal_nodes)
-print(input_tree)
