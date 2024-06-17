@@ -5,7 +5,11 @@ class TreeStructure:
     def __init__(self, tree: Tree):
         self.tree = tree
         self.leaf_nodes = self.identify_nodes()
+        self.unique_nodes = self.unique_nodes_in_tree()
         self.internal_nodes = self.update_internal_node_names()
+        self.distances = self.get_distances_and_name()[0]
+        self.node_names = self.get_distances_and_name()[1]
+        self.num_nodes = len(self.unique_nodes)
 
     def identify_nodes(self) -> list:
         """Identify leaf nodes in the tree.
@@ -19,6 +23,17 @@ class TreeStructure:
             if node.is_leaf():
                 leaf_nodes.append(node.name)
         return leaf_nodes
+
+    def unique_nodes_in_tree(self):
+        """Identify unique nodes in the tree with memory address.
+
+        Returns:
+            list: List of unique nodes in the tree with memory address.
+        """
+
+        unique_nodes = set(self.tree.iter_leaves())
+        unique_nodes.update(self.tree.traverse("postorder"))  # type: ignore
+        return unique_nodes
 
     def update_internal_node_names(self) -> list:
         """Update the internal node names in the tree by concatenating the names of their children.
@@ -61,3 +76,27 @@ class TreeStructure:
 
         return internal_nodes
 
+    def get_distances_and_name(self):
+        """Get the distances between the nodes in the tree.
+
+        Returns:
+            dict: A dictionary containing the distances between the nodes in the tree.
+        """
+        # Create a matrix to represent the distances
+        node_names = [node.name for node in self.unique_nodes]
+        node_names.sort(key=lambda x: (self.tree & x).get_distance(self.tree))
+
+        distances = {}
+        all_nodes = list(self.tree.traverse())  # type: ignore # Collect all nodes
+        for i in range(len(all_nodes)):
+            for j in range(i + 1, len(all_nodes)):
+                node1 = all_nodes[i]
+                node2 = all_nodes[j]
+                distance = node1.get_distance(
+                    node2
+                )  # Calculate distance using the tree library function
+                distance = round(distance, 2)
+                distances[(node1.name, node2.name)] = distance
+                distances[(node2.name, node1.name)] = distance
+
+        return distances, node_names
