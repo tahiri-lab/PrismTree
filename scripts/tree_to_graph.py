@@ -17,11 +17,11 @@ from primconstree_lib.graph.construct_graph import add_vertex, add_edge
 def main(input_file):
     input_tree = read_tree(input_file)
     tree_structure = TreeStructure(input_tree)
-    # print(tree_structure.leaf_nodes)
-    # print(tree_structure.internal_nodes)
-    # print(input_tree)
-    # print(tree_structure.unique_nodes)
-    # print(tree_structure.distances)
+    print(tree_structure.leaf_nodes)
+    print(tree_structure.internal_nodes)
+    print(input_tree)
+    print(tree_structure.unique_nodes)
+    print(tree_structure.distances)
     for node in tree_structure.node_names:
         add_vertex(node)
     # add edge
