@@ -11,7 +11,6 @@ sys.path.append(parent_dir)
 
 from primconstree_lib.tree.io import read_tree
 from primconstree_lib.tree.name_tree import TreeStructure
-from primconstree_lib.graph.construct_graph import add_vertex, add_edge
 
 
 def main(input_file):
@@ -22,18 +21,11 @@ def main(input_file):
     print(input_tree)
     print(tree_structure.unique_nodes)
     print(tree_structure.distances)
-    for node in tree_structure.node_names:
-        add_vertex(node)
-    # add edge
-    for i in range(0, tree_structure.num_nodes):
-        for j in range(i + 1, len(tree_structure.node_names)):
-            v1 = tree_structure.node_names[i]
-            v2 = tree_structure.node_names[j]
-            # to be continued: add the distance between two nodes
-            # if check_direct_connection(tree, v1, v2):
-            #     distance = round(distances.get((v1, v2), 0), 2)
-            # print("\n\nTree nodes conection : ",v1,"-",v2,"-",distance,"\n")
-            add_edge(v1, v2, 1)  # , distance)
+
+    # Show graph
+    # Modified Prim's algorithm
+    # Optimal path from root to leaf
+    # Consensus trees comparison for modified Prim's algorithm and Optimal path from root to leaf
 
 
 if __name__ == "__main__":
