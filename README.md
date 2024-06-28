@@ -15,18 +15,6 @@ Before you begin, ensure you have met the following requirements:
 * You have installed the latest version of required software (see requierements.txt).
 * You have a [Windows/Linux/Mac] machine. State if the software works on any other OS.
 
-### Installing `PrimConsTree`
-
-To install `PrimConsTree`, follow these steps:
-
-[provide installation steps here]
-
-## Using `PrimConsTree`
-
-To use `PrimConsTree`, follow these steps:
-
-[provide usage instructions here]
-
 ## Contributing to `PrimConsTree`
 
 To contribute to `PrimConsTree`, follow these steps:
