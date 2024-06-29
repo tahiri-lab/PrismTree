@@ -9,18 +9,20 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
 
-from primconstree_lib.tree.io import read_tree
+from primconstree_lib.tree.io import read_trees
 from primconstree_lib.tree.name_tree import TreeStructure
 
 
 def main(input_file):
-    input_tree = read_tree(input_file)
-    tree_structure = TreeStructure(input_tree)
-    print(tree_structure.leaf_nodes)
-    print(tree_structure.internal_nodes)
-    print(input_tree)
-    print(tree_structure.unique_nodes)
-    print(tree_structure.distances)
+    input_tree = read_trees(input_file)
+    for tree in input_tree:
+
+        tree_structure = TreeStructure(tree)
+        print(tree_structure.leaf_nodes)
+        print(tree_structure.internal_nodes)
+        print(input_tree)
+        print(tree_structure.unique_nodes)
+        print(tree_structure.distances)
 
     # Show graph
     # Modified Prim's algorithm
