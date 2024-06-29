@@ -10,7 +10,7 @@ parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
 
 from primconstree_lib.tree.io import read_trees
-from primconstree_lib.tree.name_tree import TreeStructure
+from primconstree_lib.tree.tree_const_old_version import TreeStructure
 
 
 def main(input_file):
