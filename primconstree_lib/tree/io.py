@@ -12,7 +12,6 @@ def read_trees(input_file: str):
     """
     trees = []
     with open(input_file, "r") as file:
-
         # Read the tree from the file
         for _, tree in enumerate(file.readlines()):
             tree.strip()
