@@ -18,13 +18,16 @@ def incorporate_tree(tree):
     edges_list = []
     weights_list = []
 
-    unnamed_node_counter = 0
+    node_counter = 0
+    # Rename internal nodes in reverse order:
+    for node in tree.traverse("postorder"):
+        # Map node name to a unique name by using the name of the node plus the counter:
+        if not node.name:
+            node.name = node.children[0].name + node.children[1].name
+        node_counter += 1
 
     for node in tree.traverse():
-        # Name internal nodes:
-        if not node.name:
-            node.name = chr(unnamed_node_counter + 65)
-            unnamed_node_counter += 1
+        # Map all nodes to a unique name:
 
         # Add node to the list of nodes:
         if node.name not in nodes_list:
@@ -46,29 +49,11 @@ def incorporate_tree(tree):
     print("Edges list:", edges_list)
     print("Weights list:", weights_list)
 
+    # Add average length calculation:
 
-# def incorporate_tree(tree):
-#     for node in tree.traverse():
-#         if node not in  G:
-#             add node in G
-#         if node.up is not None: # the node is not the root
-#             if node.up not in G:
-#                 add node.up in G
+    return nodes_list, in_degree, edges_list, weights_list  # , average_length
 
-#             in degree of node += 1
 
-#             edge = (node.up, node) # depend on edges representation
-
-#             if edge not in G:
-#                 # incorporate edge in the graph
-#                 add edge in G
-#                 frequency of edge = 1
-#                 average length of edge = length of edge
-#             else:
-#                 # update frequency and average length
-#                 frequency of edge += 1
-#                 # use average edge length as cumulative edge length untill the end
-#                 average length of edge += length of edge
 trees = read_trees(
     r"C:\Users\harsh\s\PrimConsTree\datasets\simulated\trex_treestest.txt"
 )
