@@ -14,28 +14,37 @@ from tree.io import read_trees
 
 def incorporate_tree(tree):
     nodes_list = []
-
-    # in_degree dict:
-    # key: node_name, value: in_degree of the given node
     in_degree = {}
     edges_list = []
     weights_list = []
-    #
-    # Adds node in tree from closest node to root to farthest:
+
+    unnamed_node_counter = 0
+
     for node in tree.traverse():
-        if not None:
-            if node not in nodes_list:
-                nodes_list.append(node)
-                # if node.up is not None:
-                #     if node.up not in nodes_list:
-                #         node_up = node.up
-                #         nodes_list.append(node_up)
+        # Name internal nodes:
+        if not node.name:
+            node.name = chr(unnamed_node_counter + 65)
+            unnamed_node_counter += 1
 
-            in_degree.update({node: 0})
-            in_degree[node] += 1
-    # print(nodes_list)
+        # Add node to the list of nodes:
+        if node.name not in nodes_list:
+            nodes_list.append(node.name)
+            in_degree[node.name] = 0
 
-    print(in_degree)
+        # Add parent node to the list of nodes and update in-degree:
+        if node.up is not None:
+            parent_name = node.up.name
+            in_degree[node.name] += 1
+            edge = (parent_name, node.name)
+            # Add edge to the list of edges:
+            if edge not in edges_list:
+                edges_list.append(edge)
+                weights_list.append(node.dist)
+
+    print("Nodes list:", nodes_list)
+    print("In-degree dictionary:", in_degree)
+    print("Edges list:", edges_list)
+    print("Weights list:", weights_list)
 
 
 # def incorporate_tree(tree):
@@ -63,6 +72,7 @@ def incorporate_tree(tree):
 trees = read_trees(
     r"C:\Users\harsh\s\PrimConsTree\datasets\simulated\trex_treestest.txt"
 )
-print(trees)
+
 for i in range(len(trees)):
     incorporate_tree(trees[i])
+    print(trees[i])
