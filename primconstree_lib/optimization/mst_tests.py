@@ -59,7 +59,24 @@ def random_graph():
                 G.add_edge(i, j, frequency=frequency_value, avglen=avglen_value, edge_id=edge_counter)
                 edge_counter += 1
 
-    return G
+    if not nx.is_connected(G):
+        raise Exception("G not connected, abborting")
+
+    leaves = []
+    for i in range(9, 14):
+        leaves.append(i)
+        ndegree_value = random.randint(1, 10)
+        G.add_node(i, ndegree=ndegree_value)
+        for j in range(0, 9):
+            if random.randint(0, 10) > 7:
+                frequency_value = random.randint(1, 10)
+                avglen_value = random.uniform(1.0, 10.0)
+                G.add_edge(j, i, frequency=frequency_value, avglen=avglen_value, edge_id=edge_counter)
+    
+    if not nx.is_connected(G):
+        raise Exception("G not connected, abborting")
+
+    return leaves, G
 
 def my_graph():
     G = nx.Graph()
@@ -79,14 +96,15 @@ def my_graph():
     G.add_edge(3,5, frequency=2, avglen=5)
     G.add_edge(4,6, frequency=1, avglen=5)
     G.add_edge(5,6, frequency=1, avglen=5)
-    return G
+    leaves = [1, 2]
+    return leaves, G
 
 def example():
-    G = my_graph()
+    leaves, G = random_graph()
     drawgraph(G)
 
     root = 0
-    mst = modified_modified_prim(G, root)
+    mst = modified_modified_prim(G, root, leaves)
     drawgraph(mst)
 
 example()
