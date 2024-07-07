@@ -21,6 +21,10 @@ def parent_to_graph(parent: list[int], graph: nx.Graph, src: int) -> nx.Graph:
 
 class SuperGraph:
     def __init__(self, S: list[ete3.Tree]):
+        """
+        Instanciate and compute a super graph from a list of input trees. 
+        Also compute average edge length, node degree and edge frequency, all attached on the nx.Graph instance self.graph
+        """
         self.graph : nx.Graph = nx.Graph()
         self.node_ids : dict[frozenset, int] = {}
         self.leaves : dict[str, int] = {}
@@ -84,8 +88,8 @@ class SuperGraph:
                 self.graph[parent][nid]["frequency"] += 1
 
     def modified_prim(self, src: int, modified: bool) -> nx.Graph:
-    # based on https://www.geeksforgeeks.org/prims-algorithm-using-priority_queue-stl/
         """
+        based on https://www.geeksforgeeks.org/prims-algorithm-using-priority_queue-stl/
         Create a maximum spanning tree using an adapted implementation of prim with priority queue
         The following criteria are maximised (from highest to least priority) : edge frequency, node degree (fringe vertex), node degree (MST included vertex)
         arguments:
@@ -148,9 +152,9 @@ class SuperGraph:
         
     def to_tree(self, root: int) -> ete3.Tree:
         """
-        Return the supergraph in a ete3.Tree instance. The graph must have a tree structure.
+        Return the mst as a ete3.Tree instance.
         arguments:
-            root: vertex id coresponding to the root the resulting tree
+            root: vertex id coresponding to the root the mst
         """
         tree = ete3.Tree(name=root)
         nodes = {root: tree}
@@ -158,14 +162,32 @@ class SuperGraph:
             nodes[v] = nodes[u].add_child(dist=self.mst[u][v]["avglen"], name=v)
         return tree
 
+    def replace_leaves_names(self, t: ete3.Tree):
+        """
+        Replace leaf ids by leaf names on a Tree
+        """
+        leaves_names = {v: k for k, v in self.leaves.items()}
+        for l in t.get_leaves():
+            l.name = leaves_names[l.name]
+        return t
+
     def draw_graph(self, edge_attribute: str = "frequency", display_deg: bool = False, mst: bool = False):
-        if mst: 
+        """
+        Draw the nx.Graph instance.
+        arguments:
+            edge_attribute: which edge attribute to display as edge width
+            display_deg: if True, print the list of nodes with their corresponding node degree
+            mst: if True, draw self.mst instead of self.graph
+        """
+        if mst:
+            print("\n== Drawing the SuperGraph graph ==\n") 
             G = self.mst
         else:
+            print("\n== Drawing the SuperGraph MST ==\n") 
             G = self.graph
 
         if display_deg:
-            print("Nodes with attributes:")
+            print("Nodes degrees:")
             for node, data in G.nodes(data=True):
                 print(f"\t Node {node}: ndegree = {data['ndegree']}")
             
@@ -192,6 +214,11 @@ class SuperGraph:
         plt.show()
 
     def display_info(self, list_nodes: bool = False):
+        """
+        Display object usefull information.
+        arguments:
+            list_nodes: if True, list all distinct nodes with their corresponding ids
+        """
         print("\n== Displaying SuperGraph infos ==\n")
         print("Number of input trees :", len(self.input))
         print("Number of distict nodes identified :", len(self.node_ids))
