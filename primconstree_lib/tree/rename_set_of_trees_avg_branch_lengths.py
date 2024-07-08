@@ -75,8 +75,8 @@ def compute_avg_bl_and_edge_freq(input_file):
     )
 
 
-print(
-    compute_avg_bl_and_edge_freq(
-        r"C:\Users\harsh\s\PrimConsTree\datasets\simulated\trex_treestest.txt"
-    )
-)
+# print(
+#     compute_avg_bl_and_edge_freq(
+#         r"C:\Users\harsh\s\PrimConsTree\datasets\simulated\trex_treestest.txt"
+#     )
+# )
