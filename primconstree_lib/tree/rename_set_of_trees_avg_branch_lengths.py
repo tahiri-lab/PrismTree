@@ -13,7 +13,7 @@ from tree.class_tree import Tree
 from tree.io import read_trees
 
 
-def rename_set_of_trees_compute_avg_branch_length(input_file):
+def compute_avg_bl_and_edge_freq(input_file):
     """Give unique names to each node in a set of trees by a hash function to integers mapping.
 
     Args:
@@ -28,38 +28,55 @@ def rename_set_of_trees_compute_avg_branch_length(input_file):
         tree = Tree(tree_data)
         trees_list.append(tree)
 
-    edge_hash_map = {}
-    hash_counter = 0
+    edge_hash_map_node = {}
+    edge_hash_map_edge = {}
+    hash_counter_node = 0
+    hash_counter_edge = 0
     branch_count = {}
     total_branch_length = {}
-
+    edge_frequency = {}
+    # For all trees, check if node is already mapped to an integer, if not, map it to a new integer:
+    for tree in trees_list:
+        for node in tree.nodes_list:
+            if node not in edge_hash_map_node:
+                edge_hash_map_node[node] = hash_counter_node
+                hash_counter_node += 1
     # For all trees, check if the edge is already mapped to an integer, if not, map it to a new integer:
     for tree in trees_list:
+
         for edge in tree.edges_list:
             edge_set = frozenset({edge[0], edge[1]})
-            if edge_set not in edge_hash_map:
-                edge_hash_map[edge_set] = hash_counter
-                branch_count[hash_counter] = 1
-                total_branch_length[hash_counter] = tree.weights_list[
+            if edge_set not in edge_hash_map_edge:
+                edge_hash_map_edge[edge_set] = hash_counter_edge
+                branch_count[hash_counter_edge] = 1
+                edge_frequency[hash_counter_edge] = 1
+                total_branch_length[hash_counter_edge] = tree.weights_list[
                     tree.edges_list.index(edge)
                 ]
-                hash_counter += 1
+                hash_counter_edge += 1
             else:
-                edge_hash = edge_hash_map[edge_set]
+                edge_hash = edge_hash_map_edge[edge_set]
                 branch_count[edge_hash] += 1
                 total_branch_length[edge_hash] += tree.weights_list[
                     tree.edges_list.index(edge)
                 ]
+                edge_frequency[edge_hash] += 1
 
     average_branch_length = {
         key: total_branch_length[key] / branch_count[key] for key in total_branch_length
     }
 
-    return trees_list, edge_hash_map, average_branch_length
+    return (
+        trees_list,
+        edge_hash_map_node,
+        edge_hash_map_edge,
+        average_branch_length,
+        edge_frequency,
+    )
 
 
 print(
-    rename_set_of_trees_compute_avg_branch_length(
+    compute_avg_bl_and_edge_freq(
         r"C:\Users\harsh\s\PrimConsTree\datasets\simulated\trex_treestest.txt"
     )
 )
