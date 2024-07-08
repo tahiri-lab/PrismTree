@@ -28,8 +28,8 @@ def compute_avg_bl_and_edge_freq(input_file):
         tree = Tree(tree_data)
         trees_list.append(tree)
 
-    edge_hash_map_node = {}
-    edge_hash_map_edge = {}
+    node_hash_map = {}
+    edge_hash_map = {}
     hash_counter_node = 0
     hash_counter_edge = 0
     branch_count = {}
@@ -38,16 +38,16 @@ def compute_avg_bl_and_edge_freq(input_file):
     # For all trees, check if node is already mapped to an integer, if not, map it to a new integer:
     for tree in trees_list:
         for node in tree.nodes_list:
-            if node not in edge_hash_map_node:
-                edge_hash_map_node[node] = hash_counter_node
+            if node not in node_hash_map:
+                node_hash_map[node] = hash_counter_node
                 hash_counter_node += 1
     # For all trees, check if the edge is already mapped to an integer, if not, map it to a new integer:
     for tree in trees_list:
 
         for edge in tree.edges_list:
             edge_set = frozenset({edge[0], edge[1]})
-            if edge_set not in edge_hash_map_edge:
-                edge_hash_map_edge[edge_set] = hash_counter_edge
+            if edge_set not in edge_hash_map:
+                edge_hash_map[edge_set] = hash_counter_edge
                 branch_count[hash_counter_edge] = 1
                 edge_frequency[hash_counter_edge] = 1
                 total_branch_length[hash_counter_edge] = tree.weights_list[
@@ -55,7 +55,7 @@ def compute_avg_bl_and_edge_freq(input_file):
                 ]
                 hash_counter_edge += 1
             else:
-                edge_hash = edge_hash_map_edge[edge_set]
+                edge_hash = edge_hash_map[edge_set]
                 branch_count[edge_hash] += 1
                 total_branch_length[edge_hash] += tree.weights_list[
                     tree.edges_list.index(edge)
@@ -68,8 +68,8 @@ def compute_avg_bl_and_edge_freq(input_file):
 
     return (
         trees_list,
-        edge_hash_map_node,
-        edge_hash_map_edge,
+        node_hash_map,
+        edge_hash_map,
         average_branch_length,
         edge_frequency,
     )
