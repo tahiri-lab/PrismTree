@@ -139,7 +139,7 @@ class SuperGraph:
         # Attach the leaf nodes
         for u in self.leaves.values():
             for v in self.graph[u]:
-                ndeg_in = 1/self.graph.nodes[u]["ndegree"] if self.graph.nodes[u]["ndegree"] > 0 else float('inf')
+                ndeg_in = 1/self.graph.nodes[v]["ndegree"] if self.graph.nodes[v]["ndegree"] > 0 else float('inf')
                 freq = 1/self.graph[u][v]["frequency"] if self.graph[u][v]["frequency"] > 0 else float('inf')
                 weights = (freq, ndeg_in, 0) if modified else (freq, ndeg_in)
                 if key[u] > weights:
@@ -209,7 +209,7 @@ class SuperGraph:
         nx.draw_networkx_labels(G, pos, font_weight='bold')
 
         # Display the graph
-        plt.title('Graph with' + edge_attribute)
+        plt.title('Graph with ' + edge_attribute)
         plt.axis('off')
         plt.show()
 

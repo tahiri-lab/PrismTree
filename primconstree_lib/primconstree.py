@@ -6,10 +6,10 @@ from parser import read_trees
 from output import create_unique_file
 
 
-INPUT = "datasets/illustrations/wabi.txt"
-OUTPUT = "outputs/illustrations/wabi_consensus.txt"
+INPUT = "datasets/illustrations/fig5.txt"
+OUTPUT = "outputs/illustrations/fig5_consensus.txt"
 
-MODIFIED_PRIM = False # if true, additionaly consider node degree of already included nodes
+MODIFIED_PRIM = True # if true, additionaly consider node degree of already included nodes
 AVERAGE_BRANCH_LENGTH = True # if true average lenght when deleting unnecessary internal nodes, else just sum up edge lengths
 
 
@@ -18,7 +18,7 @@ super_graph = SuperGraph(inputs)
 super_graph.display_info(True)
 super_graph.draw_graph("frequency", True, False)
 super_graph.modified_prim(super_graph.root, MODIFIED_PRIM)
-super_graph.draw_graph("frequency", False, True)
+super_graph.draw_graph("avglen", False, True)
 
 tree = super_graph.to_tree(super_graph.root)
 print("\nConsensus tree with unecessary nodes\n")
