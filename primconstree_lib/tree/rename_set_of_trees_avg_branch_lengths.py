@@ -20,7 +20,7 @@ def compute_avg_bl_and_edge_freq(input_file):
         input_file (str): The path to the input file containing the trees.
 
     Returns:
-        tuple: A tuple containing the list of trees, the hash map of edges to integers, and the average branch length of each edge in the given set of trees.
+        tuple: A tuple containing the list of trees, the hash map of edges to integers, the average branch length of each edge and the edge frequency in the given set of trees.
     """
     trees = read_trees(input_file)
     trees_list = []
