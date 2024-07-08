@@ -20,17 +20,24 @@ def parent_to_graph(parent: list[int], graph: nx.Graph, src: int) -> nx.Graph:
 
 
 class SuperGraph:
+    """
+    A class to store and use the supergraph. Main purposes are:
+    - create the graph from a set of trees on the same taxa
+    - compute a maximum spanning tree based on edge frequency and node degree
+    - display informations from the super graph or its corresponding maximum spanning tree
+    - yield the maximum spanning tree as an ete3.Tree instance
+    """
     def __init__(self, S: list[ete3.Tree]):
         """
         Instanciate and compute a super graph from a list of input trees. 
         Also compute average edge length, node degree and edge frequency, all attached on the nx.Graph instance self.graph
         """
-        self.graph : nx.Graph = nx.Graph()
-        self.node_ids : dict[frozenset, int] = {}
-        self.leaves : dict[str, int] = {}
-        self.root : int = None
-        self.mst : nx.Graph = None
-        self.input : list[ete3.Tree] = S
+        self.graph : nx.Graph = nx.Graph()         # A graph instance to hold : connectivity, node degree, average edge length, edge frequency
+        self.node_ids : dict[frozenset, int] = {}  # Mapping of node ids following this pattern : set of leaf names (frozenset) => integer
+        self.leaves : dict[str, int] = {}          # Mapping of the leaves to store which node should stay a leaf
+        self.root : int = None                     # Node id corresponding to the root node
+        self.mst : nx.Graph = None                 # A graph instance to store the mst (keep other attributes from self.graph)
+        self.input : list[ete3.Tree] = S           # The list of input trees (just in case)
 
         if not S:
             raise ValueError("Need at least one tree to build the SuperGraph")
@@ -56,7 +63,7 @@ class SuperGraph:
 
     def get_node_id(self, node: ete3.Tree):
         """
-        Get a node id from the tree node (create the id if necessary)
+        Get a node id from the tree node (create a new id if the node was not already identified)
         """
         cluster = frozenset(node.get_leaf_names())
         if cluster not in self.node_ids:
@@ -65,7 +72,7 @@ class SuperGraph:
 
     def incorporate_tree(self, t: ete3.Tree) -> None:
         """
-        Incorporate a tree in the supergraph. Update nodes, edges and metrics
+        Incorporate a tree in the supergraph. Update nodes, edges and node degree, edge frequency, average edge length
         """
         # Preorder ensure to incorporate parent before children
         for node in t.traverse("preorder"):
@@ -100,7 +107,7 @@ class SuperGraph:
         n = len(nodes)
 
         k = (float('inf'), float('inf'), float('inf')) if modified else (float('inf'), float('inf'))
-        key = [(float('inf'), float('inf'), float('inf'))] * n 
+        key = [k] * n 
         parent = [-1] * n    # Keep track of the topology of the mst
         in_mst = [False] * n # To keep track of vertices included in MST
 
@@ -146,7 +153,7 @@ class SuperGraph:
                     key[u] = weights
                     parent[u] = v
 
-
+        # Build the networkx instance from a list of parents
         self.mst = parent_to_graph(parent, self.graph, src)
         return self.mst
         
@@ -162,18 +169,18 @@ class SuperGraph:
             nodes[v] = nodes[u].add_child(dist=self.mst[u][v]["avglen"], name=v)
         return tree
 
-    def replace_leaves_names(self, t: ete3.Tree):
+    def replace_leaves_names(self, t: ete3.Tree) -> ete3.Tree:
         """
-        Replace leaf ids by leaf names on a Tree
+        Replace leaf ids by leaf names on a Tree. Modify the tree in place
         """
         leaves_names = {v: k for k, v in self.leaves.items()}
         for l in t.get_leaves():
             l.name = leaves_names[l.name]
         return t
 
-    def draw_graph(self, edge_attribute: str = "frequency", display_deg: bool = False, mst: bool = False):
+    def draw_graph(self, edge_attribute: str = "frequency", display_deg: bool = False, mst: bool = False) -> None:
         """
-        Draw the nx.Graph instance.
+        Draw the nx.Graph instance with networkx and matplotlib.
         arguments:
             edge_attribute: which edge attribute to display as edge width
             display_deg: if True, print the list of nodes with their corresponding node degree
@@ -213,7 +220,7 @@ class SuperGraph:
         plt.axis('off')
         plt.show()
 
-    def display_info(self, list_nodes: bool = False):
+    def display_info(self, list_nodes: bool = False) -> None:
         """
         Display object usefull information.
         arguments:

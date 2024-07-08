@@ -2,7 +2,8 @@ import os
 
 def create_unique_file(base_filename):
     """
-    Take a path, create directories if necessary. If the file already exists, create a new unique filename
+    100% ChatGpt here to be honest
+    Take a path, create directories if necessary. If the file already exists, create a new unique filename.
     """
     dir_name = os.path.dirname(base_filename)
     if dir_name:
