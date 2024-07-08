@@ -23,7 +23,7 @@ def drawgraph(G):
     nx.draw_networkx_nodes(G, pos, node_color='lightblue', node_size=500)
 
     # Draw edges with edge width based on frequency attribute
-    nx.draw_networkx_edges(G, pos, width=edge_widths, edge_color='gray')
+    nx.draw_networkx_edges(G, pos, width=edge_widths, edge_color='gray') # type: ignore
 
     # Draw edge labels (optional)
     edge_labels = {(u, v): data['frequency'] for u, v, data in G.edges(data=True)}

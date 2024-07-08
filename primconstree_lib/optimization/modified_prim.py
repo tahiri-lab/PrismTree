@@ -5,6 +5,7 @@ FREQUENCY_W = "frequency"
 N_DEGREE = "ndegree"
 AVG_LEN = "avglen"
 
+
 def parent_to_mst(parent: list[int], graph: nx.Graph, src: int) -> nx.Graph:
     """
     Create the mst as a nx.Graph instance from the parent list and the original graph
@@ -15,8 +16,10 @@ def parent_to_mst(parent: list[int], graph: nx.Graph, src: int) -> nx.Graph:
 
     for i, p in enumerate(parent):
         if i != src:
-            mst.add_edge(i, p, avglen=graph[i][p][AVG_LEN], frequency=graph[i][p][FREQUENCY_W])
-    
+            mst.add_edge(
+                i, p, avglen=graph[i][p][AVG_LEN], frequency=graph[i][p][FREQUENCY_W]
+            )
+
     return mst
 
 
@@ -35,15 +38,15 @@ def modified_prim(graph: nx.Graph, src: int, leaves: list[int]) -> list[int]:
     nodes = list(graph.nodes.keys())
     n = len(nodes)
 
-    key = [(float('inf'), float('inf'))] * n
-    parent = [-1] * n    # Keep track of the topology of the mst
-    in_mst = [False] * n # To keep track of vertices included in MST
+    key = [(float("inf"), float("inf"))] * n
+    parent = [-1] * n  # Keep track of the topology of the mst
+    in_mst = [False] * n  # To keep track of vertices included in MST
 
     # Init pq with the source node
     # Tuples will be sorted in lexicographic order
-    pq = [] # queue for internal nodes
+    pq = []  # queue for internal nodes
     heapq.heappush(pq, (0, 0, src))
-    key[src] = 0
+    key[src] = 0 # type: ignore
 
     # Loop until the priority queue becomes empty
     while pq:
@@ -61,8 +64,16 @@ def modified_prim(graph: nx.Graph, src: int, leaves: list[int]) -> list[int]:
         for v in graph[u]:
             if v in leaves:
                 continue
-            ndeg_out = 1/graph.nodes[v][N_DEGREE] if graph.nodes[v][N_DEGREE] > 0 else float('inf')
-            freq = 1/graph[u][v][FREQUENCY_W] if graph[u][v][FREQUENCY_W] > 0 else float('inf')
+            ndeg_out = (
+                1 / graph.nodes[v][N_DEGREE]
+                if graph.nodes[v][N_DEGREE] > 0
+                else float("inf")
+            )
+            freq = (
+                1 / graph[u][v][FREQUENCY_W]
+                if graph[u][v][FREQUENCY_W] > 0
+                else float("inf")
+            )
             weights = (freq, ndeg_out)
             if not in_mst[v] and key[v] > weights:
                 key[v] = weights
@@ -72,14 +83,22 @@ def modified_prim(graph: nx.Graph, src: int, leaves: list[int]) -> list[int]:
     # Attach the leaf nodes
     for u in leaves:
         for v in graph[u]:
-            ndeg_in = 1/graph.nodes[u][N_DEGREE] if graph.nodes[u][N_DEGREE] > 0 else float('inf')
-            freq = 1/graph[u][v][FREQUENCY_W] if graph[u][v][FREQUENCY_W] > 0 else float('inf')
+            ndeg_in = (
+                1 / graph.nodes[u][N_DEGREE]
+                if graph.nodes[u][N_DEGREE] > 0
+                else float("inf")
+            )
+            freq = (
+                1 / graph[u][v][FREQUENCY_W]
+                if graph[u][v][FREQUENCY_W] > 0
+                else float("inf")
+            )
             weights = (freq, ndeg_in, 0)
             if key[u] > weights:
-                key[u] = weights
+                key[u] = weights # type: ignore
                 parent[u] = v
 
-    return parent_to_mst(parent, graph, src)
+    return parent_to_mst(parent, graph, src)  # type: ignore
 
 
 # based on https://www.geeksforgeeks.org/prims-algorithm-using-priority_queue-stl/
@@ -98,15 +117,15 @@ def modified_modified_prim(graph: nx.Graph, src: int, leaves: list[int]) -> list
     nodes = list(graph.nodes.keys())
     n = len(nodes)
 
-    key = [(float('inf'), float('inf'), float('inf'))] * n 
-    parent = [-1] * n    # Keep track of the topology of the mst
-    in_mst = [False] * n # To keep track of vertices included in MST
+    key = [(float("inf"), float("inf"), float("inf"))] * n
+    parent = [-1] * n  # Keep track of the topology of the mst
+    in_mst = [False] * n  # To keep track of vertices included in MST
 
     # Init pq with the source node
     # Tuples will be sorted in lexicographic order
-    pq = [] # queue for internal nodes
+    pq = []  # queue for internal nodes
     heapq.heappush(pq, (0, 0, 0, 0, src))
-    key[src] = 0
+    key[src] = 0 # type: ignore
 
     # Loop until the priority queue becomes empty
     while pq:
@@ -118,31 +137,49 @@ def modified_modified_prim(graph: nx.Graph, src: int, leaves: list[int]) -> list
             continue
 
         # Include the vertex in MST
-        in_mst[u] = True  
+        in_mst[u] = True
 
         # Iterate through adjacency list of u
         for v in graph[u]:
             if v in leaves:
                 continue
-            ndeg_out = 1/graph.nodes[v][N_DEGREE] if graph.nodes[v][N_DEGREE] > 0 else float('inf')
-            ndeg_in = 1/graph.nodes[u][N_DEGREE] if graph.nodes[u][N_DEGREE] > 0 else float('inf')
-            freq = 1/graph[u][v][FREQUENCY_W] if graph[u][v][FREQUENCY_W] > 0 else float('inf')
+            ndeg_out = (
+                1 / graph.nodes[v][N_DEGREE]
+                if graph.nodes[v][N_DEGREE] > 0
+                else float("inf")
+            )
+            ndeg_in = (
+                1 / graph.nodes[u][N_DEGREE]
+                if graph.nodes[u][N_DEGREE] > 0
+                else float("inf")
+            )
+            freq = (
+                1 / graph[u][v][FREQUENCY_W]
+                if graph[u][v][FREQUENCY_W] > 0
+                else float("inf")
+            )
             weights = (freq, ndeg_out, ndeg_in)
             if not in_mst[v] and key[v] > weights:
                 key[v] = weights
                 heapq.heappush(pq, (*key[v], v))
                 parent[v] = u
-    
+
     # Attach the leaf nodes
     for u in leaves:
         for v in graph[u]:
-            ndeg_in = 1/graph.nodes[u][N_DEGREE] if graph.nodes[u][N_DEGREE] > 0 else float('inf')
-            freq = 1/graph[u][v][FREQUENCY_W] if graph[u][v][FREQUENCY_W] > 0 else float('inf')
+            ndeg_in = (
+                1 / graph.nodes[u][N_DEGREE]
+                if graph.nodes[u][N_DEGREE] > 0
+                else float("inf")
+            )
+            freq = (
+                1 / graph[u][v][FREQUENCY_W]
+                if graph[u][v][FREQUENCY_W] > 0
+                else float("inf")
+            )
             weights = (freq, ndeg_in, 0)
             if key[u] > weights:
                 key[u] = weights
                 parent[u] = v
 
-
-    return parent_to_mst(parent, graph, src)
-
+    return parent_to_mst(parent, graph, src) # type: ignore

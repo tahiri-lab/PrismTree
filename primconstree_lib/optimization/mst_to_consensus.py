@@ -31,7 +31,7 @@ def remove_unecessary_nodes(tree: ete3.Tree, leaves: list, average_on_merge: boo
         average_on_merge: when deleting a redundant node, if True make average of the merged edges lengths, else sum the lengths
     """
     accumulated_lengths = dict()
-    for node in tree.traverse("postorder"):
+    for node in tree.traverse("postorder"): # type: ignore
         if node.name not in leaves:
             children = node.get_children()
             if len(children) == 0:
