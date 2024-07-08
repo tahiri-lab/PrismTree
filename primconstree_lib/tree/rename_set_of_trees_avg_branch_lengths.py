@@ -18,6 +18,9 @@ def rename_set_of_trees_compute_avg_branch_length(input_file):
 
     Args:
         input_file (str): The path to the input file containing the trees.
+
+    Returns:
+        tuple: A tuple containing the list of trees, the hash map of edges to integers, and the average branch length of each edge in the given set of trees.
     """
     trees = read_trees(input_file)
     trees_list = []
