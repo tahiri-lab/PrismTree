@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-07-10T23:12:19.756Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="lll7Utkc3Eie12n-j9_7" version="24.6.4" type="github" pages="20">
+<mxfile host="app.diagrams.net" modified="2024-07-10T23:17:17.524Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="gTXkpuh1VT967jwNt4dX" version="24.6.4" type="github" pages="20">
   <diagram id="uMZDeEZzsqI4MvdItGuY" name="JMB-07-2024">
     <mxGraphModel dx="2185" dy="2295" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -25,7 +25,7 @@
         <mxCell id="ly-ZLPGSzm5-MEcrOGsN-5" value="" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;rotation=0;" vertex="1" parent="1">
           <mxGeometry x="212" y="-480" width="240" height="444" as="geometry" />
         </mxCell>
-        <mxCell id="ly-ZLPGSzm5-MEcrOGsN-6" value="Input&amp;nbsp;&lt;div&gt;phylogenetic trees&amp;nbsp;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;align=center;" vertex="1" parent="1">
+        <mxCell id="ly-ZLPGSzm5-MEcrOGsN-6" value="Input&amp;nbsp;&lt;div&gt;phylogenetic trees&lt;/div&gt;&lt;div&gt;with branch length&amp;nbsp;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;align=center;" vertex="1" parent="1">
           <mxGeometry x="211" y="-18" width="240" height="96" as="geometry" />
         </mxCell>
         <mxCell id="ly-ZLPGSzm5-MEcrOGsN-7" value="&lt;span&gt;a&lt;br&gt;&lt;/span&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#bdbcbc;rotation=0;fontStyle=0;verticalAlign=bottom;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" vertex="1" parent="1">
@@ -38,10 +38,10 @@
           <mxGeometry x="495" y="-18.99500000000012" width="25.897343862167983" height="25.897343862167983" as="geometry" />
         </mxCell>
         <mxCell id="ly-ZLPGSzm5-MEcrOGsN-10" value="Modified algorithm of Prim" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" vertex="1" parent="1">
-          <mxGeometry x="1032" y="-18" width="288" height="96" as="geometry" />
+          <mxGeometry x="1020" y="-18" width="300" height="96" as="geometry" />
         </mxCell>
         <mxCell id="ly-ZLPGSzm5-MEcrOGsN-11" value="&lt;span&gt;c&lt;br&gt;&lt;/span&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#bdbcbc;rotation=0;verticalAlign=bottom;fontStyle=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" vertex="1" parent="1">
-          <mxGeometry x="1032" y="-18.99500000000012" width="25.897343862167983" height="25.897343862167983" as="geometry" />
+          <mxGeometry x="1020" y="-18.99500000000012" width="25.897343862167983" height="25.897343862167983" as="geometry" />
         </mxCell>
         <mxCell id="ly-ZLPGSzm5-MEcrOGsN-12" value="MST to consensus tree" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" vertex="1" parent="1">
           <mxGeometry x="1360" y="-18" width="240" height="96" as="geometry" />
@@ -67,7 +67,7 @@
         <mxCell id="ly-ZLPGSzm5-MEcrOGsN-41" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#CCCCCC;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;rotation=-90;container=0;" vertex="1" parent="1">
           <mxGeometry x="1104.23" y="-406.6299999999999" width="28.53627692699453" height="28.53627692699453" as="geometry" />
         </mxCell>
-        <mxCell id="ly-ZLPGSzm5-MEcrOGsN-42" value="&lt;b&gt;&lt;br&gt;&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#f8cecc;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;rotation=-90;container=0;strokeColor=#b85450;" vertex="1" parent="1">
+        <mxCell id="ly-ZLPGSzm5-MEcrOGsN-42" value="&lt;b&gt;&lt;br&gt;&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#ffe6cc;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;rotation=-90;container=0;strokeColor=#000000;" vertex="1" parent="1">
           <mxGeometry x="1104.23" y="-310.6299999999999" width="28.53627692699453" height="28.53627692699453" as="geometry" />
         </mxCell>
         <mxCell id="ly-ZLPGSzm5-MEcrOGsN-43" value="c" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=16;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;rotation=0;container=0;" vertex="1" parent="1">
@@ -162,7 +162,7 @@
             <mxPoint x="322.1" y="-200.89500000000018" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="ly-ZLPGSzm5-MEcrOGsN-109" value="&lt;b&gt;&lt;br&gt;&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#f8cecc;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;rotation=0;strokeColor=#b85450;" vertex="1" parent="1">
+        <mxCell id="ly-ZLPGSzm5-MEcrOGsN-109" value="&lt;b&gt;&lt;br&gt;&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#ffe6cc;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;rotation=0;strokeColor=#000000;" vertex="1" parent="1">
           <mxGeometry x="300.1" y="-210.89500000000018" width="25.897343862167983" height="25.897343862167983" as="geometry" />
         </mxCell>
         <mxCell id="ly-ZLPGSzm5-MEcrOGsN-110" value="" style="endArrow=none;html=1;rounded=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" edge="1" parent="1">
@@ -219,7 +219,7 @@
             <mxPoint x="328.08111988513997" y="-429.52500000000015" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="ly-ZLPGSzm5-MEcrOGsN-121" value="&lt;b&gt;&lt;br&gt;&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#f8cecc;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;rotation=0;strokeColor=#b85450;" vertex="1" parent="1">
+        <mxCell id="ly-ZLPGSzm5-MEcrOGsN-121" value="&lt;b&gt;&lt;br&gt;&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#ffe6cc;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;rotation=0;strokeColor=#000000;" vertex="1" parent="1">
           <mxGeometry x="324.183776022972" y="-439.52500000000015" width="25.897343862167983" height="25.897343862167983" as="geometry" />
         </mxCell>
         <mxCell id="ly-ZLPGSzm5-MEcrOGsN-122" value="" style="endArrow=none;html=1;rounded=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" edge="1" parent="1">
@@ -270,7 +270,7 @@
             <mxPoint x="1471.1" y="-340.3450000000002" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="ly-ZLPGSzm5-MEcrOGsN-132" value="&lt;b&gt;&lt;br&gt;&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#f8cecc;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;rotation=0;strokeColor=#b85450;" vertex="1" parent="1">
+        <mxCell id="ly-ZLPGSzm5-MEcrOGsN-132" value="&lt;b&gt;&lt;br&gt;&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#ffe6cc;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;rotation=0;strokeColor=#000000;" vertex="1" parent="1">
           <mxGeometry x="1449.1" y="-350.3450000000002" width="25.897343862167983" height="25.897343862167983" as="geometry" />
         </mxCell>
         <mxCell id="ly-ZLPGSzm5-MEcrOGsN-133" value="" style="endArrow=none;html=1;rounded=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" edge="1" parent="1">
@@ -345,7 +345,7 @@
         <mxCell id="ly-ZLPGSzm5-MEcrOGsN-58" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#CCCCCC;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;rotation=-180;container=0;" vertex="1" parent="1">
           <mxGeometry x="602.2799999999999" y="-294.7202228614113" width="28.53627692699453" height="28.53627692699453" as="geometry" />
         </mxCell>
-        <mxCell id="ly-ZLPGSzm5-MEcrOGsN-59" value="&lt;b&gt;&lt;br&gt;&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#f8cecc;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;rotation=-180;container=0;strokeColor=#b85450;" vertex="1" parent="1">
+        <mxCell id="ly-ZLPGSzm5-MEcrOGsN-59" value="&lt;b&gt;&lt;br&gt;&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#ffe6cc;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;rotation=-180;container=0;strokeColor=#000000;" vertex="1" parent="1">
           <mxGeometry x="721.1985815763369" y="-294.7202228614113" width="28.53627692699453" height="28.53627692699453" as="geometry" />
         </mxCell>
         <mxCell id="ly-ZLPGSzm5-MEcrOGsN-60" value="b" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=16;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;rotation=0;container=0;" vertex="1" parent="1">
