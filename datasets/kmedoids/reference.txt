@@ -1,0 +1,1 @@
+((Pyrobaculu:1,(Aeropyrum_:1,Sulfolobus:1):1):1,((Pyrococcu1:1,(Pyrococcu0:1,Pyrococcus:1):1):1,((Methanococ:1,Methanobac:1):1,((Thermoplas:1,Ferroplasm:1):1,(Archaeoglo:1,(Methanosar:1,(Haloarcula:1,Halobacter:1):1):1):1):1):1):1);

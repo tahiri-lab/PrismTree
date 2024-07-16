@@ -1,41 +1,62 @@
+import logging
 import networkx as nx
 import ete3
 from super_graph import SuperGraph
 from mst_to_consensus import remove_unecessary_nodes
-from parser import read_trees
-from output import create_unique_file
+from misc import read_trees, create_unique_file
 
 
-INPUT = "datasets/illustrations/fig5.txt"
-OUTPUT = "outputs/illustrations/fig5_consensus.txt"
+def primconstree(inputfile: str, format: int = 0, outputfile: str = None, modified_prim: bool = True, 
+                avg_on_merge: bool = False, debug: bool = False) -> ete3.Tree:
+    """ Generate the primconstree tree
+        arguments:
+            - inputfile (str): file to get the input trees from
+            - format (int): the newick format (from ete3)
+            - outputfile (str): the outputfile to write in newick (same format as input) (if None doesn't write)
+            - modified_prim (boolean): if True use the last criterion (degree of included vertex)
+            - avg_on_merge (boolean): if True average the edges length when deleting redundant internal node, else sum
+            - debug (boolean): if True, draw the super graph the MST with unnecessary nodes and the consensus tree
+        returns:
+            - (ete3.Tree): The consensus tree as a Tree object
+    """
+    logging.info("Generating PrimConsTree from input file %s", inputfile)
 
-MODIFIED_PRIM = True # if true, additionaly consider node degree of already included nodes
-AVERAGE_BRANCH_LENGTH = True # if true average lenght when deleting unnecessary internal nodes, else just sum up edge lengths
+    inputs = read_trees(inputfile, 0)
+    super_graph = SuperGraph(inputs)
+    logging.debug("Super-Graph Generated")
+    if debug:
+        super_graph.display_info(False)
+        super_graph.draw_graph("frequency", False, False)
 
+    super_graph.modified_prim(super_graph.root, modified_prim)
+    logging.debug("MST found with modified prim (modified_prim = %s)", str(modified_prim))
+    if debug:
+        super_graph.draw_graph("avglen", False, True)
 
-inputs = read_trees(INPUT)
-super_graph = SuperGraph(inputs)
-super_graph.display_info(True)
-super_graph.draw_graph("frequency", True, False)
-super_graph.modified_prim(super_graph.root, MODIFIED_PRIM)
-super_graph.draw_graph("avglen", False, True)
+    tree = super_graph.to_tree(super_graph.root)
+    if debug:
+        print("\nConsensus tree with unecessary nodes\n")
+        print(tree)
 
-tree = super_graph.to_tree(super_graph.root)
-print("\nConsensus tree with unecessary nodes\n")
-print(tree)
+    remove_unecessary_nodes(tree, list(super_graph.leaves.values()), avg_on_merge)
+    tree = super_graph.replace_leaves_names(tree)
+    logging.debug("Proper consensus tree generated from MST (avg_on_merge = %s)", str(avg_on_merge))
+    if debug:
+        print("\nFinal consensus tree\n")
+        print(tree)
 
-remove_unecessary_nodes(tree, list(super_graph.leaves.values()), AVERAGE_BRANCH_LENGTH)
-tree = super_graph.replace_leaves_names(tree)
-print("\nFinal consensus tree\n")
-print(tree)
+    if debug:
+        print("\nNodes distances to parent:")
+        for n in tree.traverse():
+            print("\t", n.name, "=>", n.dist)
 
-print("\nNodes distances to parent:")
-for n in tree.traverse():
-    print("\t", n.name, "=>", n.dist)
+    if outputfile:
+        logging.info("Saving consensus tree to output file : %s", outputfile)
+        filename_unique = create_unique_file(outputfile)
+        if filename_unique != outputfile:
+            logging.warning("File %s already exists, writing to : %s", outputfile, filename_unique)
+        tree.write(outfile=filename_unique, format=0)
+        logging.info("Saved consensus tree to output file : %s", filename_unique)
 
-print("\nSaving consensus tree to output file", OUTPUT)
-filename = create_unique_file(OUTPUT)
-if filename != OUTPUT:
-    print("WARNING : File", OUTPUT, "already exists, saving to", filename, "instead")
-tree.write(outfile=filename, format=1)
-print("Consensus tree saved to output file", OUTPUT)
+    return Tree
+    

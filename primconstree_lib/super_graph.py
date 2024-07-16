@@ -187,10 +187,10 @@ class SuperGraph:
             mst: if True, draw self.mst instead of self.graph
         """
         if mst:
-            print("\n== Drawing the SuperGraph graph ==\n") 
+            name = "MST "
             G = self.mst
         else:
-            print("\n== Drawing the SuperGraph MST ==\n") 
+            name = "Super-Graph "
             G = self.graph
 
         if display_deg:
@@ -216,7 +216,7 @@ class SuperGraph:
         nx.draw_networkx_labels(G, pos, font_weight='bold')
 
         # Display the graph
-        plt.title('Graph with ' + edge_attribute)
+        plt.title(name + 'with ' + edge_attribute)
         plt.axis('off')
         plt.show()
 
