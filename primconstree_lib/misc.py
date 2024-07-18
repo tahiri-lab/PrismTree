@@ -20,6 +20,11 @@ def read_trees(input_file: str, format=0):
             trees.append(Tree(tree, format=format))
     return trees
 
+def phylo_to_ete3(tree):
+    newick = tree.format("newick")
+    ete_tree = Tree(newick)
+    return ete_tree
+
 def create_unique_file(base_filename):
     """
     100% ChatGpt here to be honest

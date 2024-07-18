@@ -1,0 +1,44 @@
+[
+    {
+        "primconstree": {
+            "k": 100,
+            "n": 10,
+            "rf": 94.66666666666664,
+            "duration": null
+        },
+        "majority": {
+            "k": 100,
+            "n": 10,
+            "rf": 96.85714285714288,
+            "duration": null
+        }
+    },
+    {
+        "primconstree": {
+            "k": 1000,
+            "n": 10,
+            "rf": 962.8888888888919,
+            "duration": null
+        },
+        "majority": {
+            "k": 1000,
+            "n": 10,
+            "rf": 963.8571428571441,
+            "duration": null
+        }
+    },
+    {
+        "primconstree": {
+            "k": 10,
+            "n": 10,
+            "rf": 8.90909090909091,
+            "duration": null
+        },
+        "majority": {
+            "k": 10,
+            "n": 10,
+            "rf": 8.857142857142858,
+            "duration": null
+        }
+    }
+]
