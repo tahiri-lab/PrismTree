@@ -57,11 +57,11 @@ class SuperGraph:
         # The list of input trees (just in case)
         self.input : list[ete3.Tree] = inputs
 
-        if not S:
+        if inputs == []:
             raise ValueError("Need at least one tree to build the SuperGraph")
 
         # Parse and leaves and map leaves ids
-        for i, l in enumerate(S[0].get_leaf_names()):
+        for i, l in enumerate(inputs[0].get_leaf_names()):
             self.node_ids[frozenset({l})] = i
             self.leaves[l] = i
             self.graph.add_node(i, ndegree=0)

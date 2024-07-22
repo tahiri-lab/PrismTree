@@ -4,7 +4,7 @@ import logging
 from statistics import fmean
 import ete3
 from super_graph import SuperGraph
-from misc import read_trees, create_unique_file
+from misc import create_unique_file
 
 
 def remove_unecessary_nodes(tree: ete3.Tree, leaves: list[str], 

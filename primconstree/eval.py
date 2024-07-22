@@ -1,110 +1,101 @@
+""" Run several instance of primconstree and extended majority rule 
+    on different datasets, compute metrics, and save results in a file.
+"""
 from pathlib import Path
+import os
 import logging
 import timeit
 import json
-from misc import read_trees, phylo_to_ete3
-from primconstree import primconstree
 from Bio.Phylo.Consensus import majority_consensus
 from Bio.Phylo import parse
-
-
-INPUT_DIR = "datasets/eval/vary_k"
-OUTPUT_FILE = "outputs/eval2/vary_k.json"
-SAVE_BATCHS = False
-NWCK_FORMAT = 5
-NB_BATCH = 10
-BENCHMARK = True
-NUM_IT = 100
+from misc import read_trees, phylo_to_ete3
+from primconstree import primconstree
+from distances import average_rf
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-# Parsing all inputs, building primconstree and extended majority rule
-logging.info("Reading trees from input directory %s", INPUT_DIR)
-folder = Path(INPUT_DIR)
-files = [file.name for file in folder.iterdir() if file.is_file()]
-
-data = []
-for file in files:
-    file_path = INPUT_DIR + "/" + file
-    input_ete3 = read_trees(file_path, NWCK_FORMAT)
-    input_bio = list(parse(file_path, "newick"))
-
-    instance = {"prim": {"batchs": []}, "maj": {"batchs": []}}
-    instance["file"] = file_path
-    instance["nb_batch"] = NB_BATCH
-    instance["k"] = int(len(input_ete3)/NB_BATCH)
-    instance["n"] = int(len(input_ete3[0].get_leaves()))
-
-    logging.info("Processing file %s: nb batch = %i, k = %i, n = %i", file, NB_BATCH, instance["k"], instance["n"])
-    if BENCHMARK:
-        logging.info("Benchmarking with %i iterations", NUM_IT)
-
-    for i in range(0, len(input_ete3), instance["k"]):
-        p_batch = {}
-        m_batch = {}
-        p_batch["input"] = input_ete3[i:i+instance["k"]]
-        m_batch["input"] = input_bio[i:i+instance["k"]]
-        p_batch["cons"] = primconstree(p_batch["input"], 0, None, True, False, False)
-        m_batch["cons"] = majority_consensus(m_batch["input"], 0)
-        if BENCHMARK:
-            t_p = timeit.Timer(lambda: primconstree(p_batch["input"], 0, None, True, False, False))
-            p_batch["dur"] = t_p.timeit(NUM_IT)
-            t_m = timeit.Timer(lambda: majority_consensus(m_batch["input"], 0))
-            m_batch["dur"] = t_m.timeit(NUM_IT)
-
-        # Converting biopython tree to ete3 tree to facilitate comparison
-        m_batch["input"] = [phylo_to_ete3(t) for t in m_batch["input"]]
-        m_batch["cons"] = phylo_to_ete3(m_batch["cons"])
-        instance["prim"]["batchs"].append(p_batch)
-        instance["maj"]["batchs"].append(m_batch)
-
-        if BENCHMARK:
-            instance["prim"]["durations"] = [b["dur"] for b in instance["prim"]["batchs"]]
-            instance["maj"]["durations"] = [b["dur"] for b in instance["maj"]["batchs"]]
+INPUT_DIR = "datasets/eval/vary_k"
+OUTPUT_FILE = "outputs/eval/vary_k.json"
+NWCK_FORMAT = 5
+NB_BATCH = 10
+BENCHMARK = 10
 
 
-    data.append(instance)
+def run_primconstree(input_trees, k, benchmark):
+    instance = {"batches": [], "durations": [], "rf": []}
+    for i in range(0, len(input_trees), k):
+        batch_input = input_trees[i:i+k]
+        batch = {
+            "input": batch_input,
+            "cons": primconstree(batch_input, None, 0, True, False, False)
+        }
+        instance["batches"].append(batch)
+        instance["rf"].append(average_rf(batch["input"], batch["cons"]))
+        if benchmark > 0:
+            tm = timeit.Timer(lambda: primconstree(batch_input, None, 0, True, False, False))
+            batch["duration"] = tm.timeit(benchmark)
+            instance["durations"].append(batch["duration"])
+    return instance
 
 
-if BENCHMARK:
-    for i, d in enumerate(data):
-        p_dur = [b["dur"] for b in d["prim"]["batchs"]]
-        m_dur = [b["dur"] for b in d["maj"]["batchs"]]
-        data[i]["prim"]["dur_avg"] = sum(p_dur) / NB_BATCH
-        data[i]["maj"]["dur_avg"] = sum(m_dur) / NB_BATCH
+def run_majority(input_trees, k, benchmark):
+    instance = {"batches": [], "durations": [], "rf": []}
+    for i in range(0, len(input_trees), k):
+        batch_input = input_trees[i:i+k]
+        batch = {
+            "input": [phylo_to_ete3(t) for t in batch_input],
+            "cons": phylo_to_ete3(majority_consensus(batch_input, 0)),
+            "duration": None
+        }
+        instance["batches"].append(batch)
+        instance["rf"].append(average_rf(batch["input"], batch["cons"]))
+        if benchmark > 0:
+            tm = timeit.Timer(lambda: majority_consensus(batch_input, 0))
+            batch["duration"] = tm.timeit(benchmark)
+            instance["durations"].append(batch["duration"])
+    return instance
 
 
-for i, d in enumerate(data):
-    k = d["k"]
+def run_eval(input_dir, n_batch, benchmark):
+    files = [file.name for file in Path(input_dir).iterdir() if file.is_file()]
+    eval_data = []
+    for filename in files:
+        path = input_dir + "/" + filename
+        input_ete3 = read_trees(path, NWCK_FORMAT)
+        input_bio = list(parse(path, "newick"))
 
-    for batch in d["prim"]["batchs"]:
-        cons = batch["cons"]
-        rf_sum = 0
-        for tree in batch["input"]:
-            rf, max_rf = tree.robinson_foulds(cons, unrooted_trees=True)[:2]
-            rf_sum += rf / max_rf
-        batch["rf"] = rf_sum / k
-    data[i]["prim"]["rf_values"] = [b["rf"] for b in d["prim"]["batchs"]]
-    data[i]["prim"]["rf_avg"] = sum(d["prim"]["rf_values"]) / NB_BATCH
+        if len(input_ete3) % n_batch != 0:
+            raise ValueError(f"Number of trees in file {path} = {len(input_ete3)}"
+                             f"is not compatible with number of batchs {n_batch}")
 
-    for batch in d["maj"]["batchs"]:
-        cons = batch["cons"]
-        rf_sum = 0
-        for tree in batch["input"]:
-            rf, max_rf = tree.robinson_foulds(cons, unrooted_trees=True)[:2]
-            rf_sum += rf / max_rf
-        batch["rf"] = rf_sum / k
-    data[i]["maj"]["rf_values"] = [b["rf"] for b in d["maj"]["batchs"]]
-    data[i]["maj"]["rf_avg"] = sum(d["maj"]["rf_values"]) / NB_BATCH
+        k = int(len(input_ete3)/n_batch)
+        n = int(len(input_ete3[0].get_leaves()))
 
+        logging.info("Processing file %s: nb batch = %i, k = %i, n = %i", filename, n_batch, k, n)
+        if benchmark > 0:
+            logging.info("Benchmarking with %i iterations", benchmark)
 
+        eval_data.append({
+            "file": path,
+            "nb_batch": n_batch,
+            "k": k,
+            "n": n,
+            "prim": run_primconstree(input_ete3, k, benchmark),
+            "maj": run_majority(input_bio, k, benchmark)
+        })
+
+    return eval_data
+
+logging.info("Running evaluation")
+data = run_eval(INPUT_DIR, NB_BATCH, BENCHMARK)
+
+logging.info("Saving results to %s", OUTPUT_FILE)
+os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
 with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-    logging.info("Writing results to %s", OUTPUT_FILE)
     save = data.copy()
-    if not SAVE_BATCHS:
-        for d in save:
-            del d["prim"]["batchs"]
-            del d["maj"]["batchs"]
+    for d in save:
+        del d["prim"]["batches"]
+        del d["maj"]["batches"]
     json.dump(data, f, indent=4)
 
 logging.info("Process finished")
