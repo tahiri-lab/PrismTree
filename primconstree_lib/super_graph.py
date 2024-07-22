@@ -1,13 +1,24 @@
+""" Handle operations related to the super-graph in primconstree such as:
+- construction from set of trees
+- finding mst
+"""
+import heapq
 import networkx as nx
 import matplotlib.pyplot as plt
 import ete3
-import heapq
 
 
 def parent_to_graph(parent: list[int], graph: nx.Graph, src: int) -> nx.Graph:
-    """
-    Create the mst as a nx.Graph instance from the parent list and the original graph
-    The transformation keep the edges/nodes features from the original graph
+    """ Yield a spanning tree as a nx.Graph instance
+        from a list of parents and a graph instance
+
+    Args:
+        parent (list[int]): list of parent node id for each node in graph
+        graph (nx.Graph): the graph instance to build the mst from
+        src (int): the source node id to start the mst
+
+    Returns:
+        nx.Graph: the mst as a graph instance
     """
     g = nx.Graph()
     g.add_nodes_from(graph.nodes(data=True))
@@ -15,7 +26,7 @@ def parent_to_graph(parent: list[int], graph: nx.Graph, src: int) -> nx.Graph:
     for i, p in enumerate(parent):
         if i != src:
             g.add_edge(i, p, avglen=graph[i][p]["avglen"], frequency=graph[i][p]["frequency"])
-    
+
     return g
 
 
@@ -27,17 +38,24 @@ class SuperGraph:
     - display informations from the super graph or its corresponding maximum spanning tree
     - yield the maximum spanning tree as an ete3.Tree instance
     """
-    def __init__(self, S: list[ete3.Tree]):
+    def __init__(self, inputs: list[ete3.Tree]):
+        """ Instanciate the super-graph and compute associated metrics
+
+        Args:
+            inputs (list[ete3.Tree]): the list of trees to build the super-graph from
         """
-        Instanciate and compute a super graph from a list of input trees. 
-        Also compute average edge length, node degree and edge frequency, all attached on the nx.Graph instance self.graph
-        """
-        self.graph : nx.Graph = nx.Graph()         # A graph instance to hold : connectivity, node degree, average edge length, edge frequency
-        self.node_ids : dict[frozenset, int] = {}  # Mapping of node ids following this pattern : set of leaf names (frozenset) => integer
-        self.leaves : dict[str, int] = {}          # Mapping of the leaves to store which node should stay a leaf
-        self.root : int = None                     # Node id corresponding to the root node
-        self.mst : nx.Graph = None                 # A graph instance to store the mst (keep other attributes from self.graph)
-        self.input : list[ete3.Tree] = S           # The list of input trees (just in case)
+        # A graph instance to hold : connectivity, node degree, average edge length, edge frequency
+        self.graph : nx.Graph = nx.Graph()
+        # Mapping of node ids following this pattern : set of leaf names (frozenset) => id (integer)
+        self.node_ids : dict[frozenset, int] = {}
+        # Mapping of the leaves to store which node should stay a leaf
+        self.leaves : dict[str, int] = {}
+        # Node id corresponding to the root node
+        self.root : int = None
+        # A graph instance to store the mst (keep other attributes from self.graph)
+        self.mst : nx.Graph = None
+        # The list of input trees (just in case)
+        self.input : list[ete3.Tree] = inputs
 
         if not S:
             raise ValueError("Need at least one tree to build the SuperGraph")
@@ -61,9 +79,15 @@ class SuperGraph:
         for u, v in self.graph.edges():
             self.graph[u][v]["avglen"] = self.graph[u][v]["avglen"] / self.graph[u][v]["frequency"]
 
-    def get_node_id(self, node: ete3.Tree):
-        """
-        Get a node id from the tree node (create a new id if the node was not already identified)
+    def get_node_id(self, node: ete3.Tree) -> int:
+        """ Return a node id (int) from a ete3 node instance (create if not exist)
+            Id is created from the set of leaf names in the subtree
+
+        Args:
+            node (ete3.Tree): the node to get the id from
+
+        Returns:
+            int: the node id
         """
         cluster = frozenset(node.get_leaf_names())
         if cluster not in self.node_ids:
@@ -71,8 +95,11 @@ class SuperGraph:
         return self.node_ids[cluster]
 
     def incorporate_tree(self, t: ete3.Tree) -> None:
-        """
-        Incorporate a tree in the supergraph. Update nodes, edges and node degree, edge frequency, average edge length
+        """ Incorporate a tree in the supergraph. 
+            Update nodes, edges and node degree, edge frequency, average edge length
+
+        Args:
+            t (ete3.Tree): the tree to incorporate
         """
         # Preorder ensure to incorporate parent before children
         for node in t.traverse("preorder"):
@@ -95,42 +122,42 @@ class SuperGraph:
                 self.graph[parent][nid]["frequency"] += 1
 
     def modified_prim(self, src: int, modified: bool) -> nx.Graph:
-        """
-        based on https://www.geeksforgeeks.org/prims-algorithm-using-priority_queue-stl/
-        Create a maximum spanning tree using an adapted implementation of prim with priority queue
-        The following criteria are maximised (from highest to least priority) : edge frequency, node degree (fringe vertex), node degree (MST included vertex)
-        arguments:
-            src: the source node to start the mst (root in our use case)
-            modified: if True, add an additional criteria: the degree of the nodes already included in the mst
+        """ Create a maximum spanning tree using a priority queue.
+            MST is based on (in this order) :
+            - edge frequency, 
+            - node degree (fringe vertex), 
+            - node degree (MST included vertex)
+            (see https://www.geeksforgeeks.org/prims-algorithm-using-priority_queue-stl/)
+
+        Args:
+            src (int): the source node id to start the mst
+            modified (bool): if True use the last criterion (degree of included vertex)
+        
+        Returns:
+            nx.Graph: the mst as a graph instance
         """
         nodes = list(self.graph.nodes.keys())
         n = len(nodes)
 
         k = (float('inf'), float('inf'), float('inf')) if modified else (float('inf'), float('inf'))
-        key = [k] * n 
+        key = [k] * n
         parent = [-1] * n    # Keep track of the topology of the mst
         in_mst = [False] * n # To keep track of vertices included in MST
 
-        # Init pq with the source node
-        # Tuples will be sorted in lexicographic order
-        pq = [] # queue for internal nodes
+        # Init the queue with the source node
+        pq = []
         crits = (0, 0, 0) if modified else (0, 0)
         heapq.heappush(pq, (*crits, src))
         key[src] = 0
 
         # Loop until the priority queue becomes empty
         while pq:
-            # Extract the id of the next vertex
             u = heapq.heappop(pq)[-1]
-
-            # Abort if u already included
             if in_mst[u]:
                 continue
 
-            # Include the vertex in MST
-            in_mst[u] = True  
+            in_mst[u] = True
 
-            # Iterate through adjacency list of u
             for v in self.graph[u]:
                 if v in self.leaves.values():
                     continue
@@ -142,7 +169,7 @@ class SuperGraph:
                     key[v] = weights
                     heapq.heappush(pq, (*key[v], v))
                     parent[v] = u
-        
+
         # Attach the leaf nodes
         for u in self.leaves.values():
             for v in self.graph[u]:
@@ -156,12 +183,15 @@ class SuperGraph:
         # Build the networkx instance from a list of parents
         self.mst = parent_to_graph(parent, self.graph, src)
         return self.mst
-        
+
     def to_tree(self, root: int) -> ete3.Tree:
-        """
-        Return the mst as a ete3.Tree instance.
-        arguments:
-            root: vertex id coresponding to the root the mst
+        """ Return the maximum spanning tree as an ete3.Tree instance from the nx.Graph
+
+        Args:
+            root (int): the root node id of the tree
+
+        Returns:
+            ete3.Tree: the mst as a tree instance
         """
         tree = ete3.Tree(name=root)
         nodes = {root: tree}
@@ -170,21 +200,27 @@ class SuperGraph:
         return tree
 
     def replace_leaves_names(self, t: ete3.Tree) -> ete3.Tree:
-        """
-        Replace leaf ids by leaf names on a Tree. Modify the tree in place
+        """ Replace leaf node ids in the tree by their original leaf names
+
+        Args:
+            t (ete3.Tree): the tree to replace the leaf names
+
+        Returns:
+            ete3.Tree: the tree with leaf names instead of ids
         """
         leaves_names = {v: k for k, v in self.leaves.items()}
         for l in t.get_leaves():
             l.name = leaves_names[l.name]
         return t
 
-    def draw_graph(self, edge_attribute: str = "frequency", display_deg: bool = False, mst: bool = False) -> None:
-        """
-        Draw the nx.Graph instance with networkx and matplotlib.
-        arguments:
-            edge_attribute: which edge attribute to display as edge width
-            display_deg: if True, print the list of nodes with their corresponding node degree
-            mst: if True, draw self.mst instead of self.graph
+    def draw_graph(self, edge_attribute: str = "frequency", display_deg: bool = False,
+                   mst: bool = False) -> None:
+        """ Draw the supergraph or the mst with networkx and matplotlib
+
+        Args:
+            edge_attribute (str, optional): The attribute to display as edge label. Defaults to "frequency".
+            display_deg (bool, optional): If True, display node degrees in the console. Defaults to False.
+            mst (bool, optional): If True, draw the mst, otherwise the super-graph. Defaults to False.
         """
         if mst:
             name = "MST "

@@ -8,15 +8,15 @@ from Bio.Phylo.Consensus import majority_consensus
 from Bio.Phylo import parse
 
 
-INPUT_DIR = "datasets/eval/vary_n"
-OUTPUT_FILE = "outputs/vary_n.json"
+INPUT_DIR = "datasets/eval/vary_k"
+OUTPUT_FILE = "outputs/eval2/vary_k.json"
+SAVE_BATCHS = False
 NWCK_FORMAT = 5
 NB_BATCH = 10
-BENCHMARK = False
+BENCHMARK = True
 NUM_IT = 100
 
-logging.basicConfig(level=logging.INFO,
-                    format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Parsing all inputs, building primconstree and extended majority rule
 logging.info("Reading trees from input directory %s", INPUT_DIR)
@@ -35,8 +35,7 @@ for file in files:
     instance["k"] = int(len(input_ete3)/NB_BATCH)
     instance["n"] = int(len(input_ete3[0].get_leaves()))
 
-    logging.info("Processing file %s: nb batch = %i, k = %i, n = %i",
-                 file, NB_BATCH, instance["k"], instance["n"])
+    logging.info("Processing file %s: nb batch = %i, k = %i, n = %i", file, NB_BATCH, instance["k"], instance["n"])
     if BENCHMARK:
         logging.info("Benchmarking with %i iterations", NUM_IT)
 
@@ -45,17 +44,13 @@ for file in files:
         m_batch = {}
         p_batch["input"] = input_ete3[i:i+instance["k"]]
         m_batch["input"] = input_bio[i:i+instance["k"]]
-        p_batch["cons"] = primconstree(
-            p_batch["input"], 0, None, True, False, False)
+        p_batch["cons"] = primconstree(p_batch["input"], 0, None, True, False, False)
         m_batch["cons"] = majority_consensus(m_batch["input"], 0)
         if BENCHMARK:
-            t_p = timeit.Timer(lambda: primconstree(
-                p_batch["input"], 0, None, True, False, False))
+            t_p = timeit.Timer(lambda: primconstree(p_batch["input"], 0, None, True, False, False))
             p_batch["dur"] = t_p.timeit(NUM_IT)
             t_m = timeit.Timer(lambda: majority_consensus(m_batch["input"], 0))
             m_batch["dur"] = t_m.timeit(NUM_IT)
-        else:
-            p_batch["dur"], m_batch["dur"] = None, None
 
         # Converting biopython tree to ete3 tree to facilitate comparison
         m_batch["input"] = [phylo_to_ete3(t) for t in m_batch["input"]]
@@ -63,36 +58,53 @@ for file in files:
         instance["prim"]["batchs"].append(p_batch)
         instance["maj"]["batchs"].append(m_batch)
 
+        if BENCHMARK:
+            instance["prim"]["durations"] = [b["dur"] for b in instance["prim"]["batchs"]]
+            instance["maj"]["durations"] = [b["dur"] for b in instance["maj"]["batchs"]]
+
+
     data.append(instance)
+
+
+if BENCHMARK:
+    for i, d in enumerate(data):
+        p_dur = [b["dur"] for b in d["prim"]["batchs"]]
+        m_dur = [b["dur"] for b in d["maj"]["batchs"]]
+        data[i]["prim"]["dur_avg"] = sum(p_dur) / NB_BATCH
+        data[i]["maj"]["dur_avg"] = sum(m_dur) / NB_BATCH
+
 
 for i, d in enumerate(data):
     k = d["k"]
-    for p_batch, m_batch in zip(d["prim"]["batchs"], d["maj"]["batchs"]):
-        p_cons = p_batch["cons"]
-        m_cons = m_batch["cons"]
-        p_batch["rf_sum"] = 0
-        m_batch["rf_sum"] = 0
-        for p_tree, m_tree in zip(p_batch["input"], m_batch["input"]):
-            p_rf, p_max_rf = p_tree.robinson_foulds(
-                p_cons, unrooted_trees=True)[:2]
-            m_rf, m_max_rf = m_tree.robinson_foulds(
-                m_cons, unrooted_trees=True)[:2]
-            p_batch["rf_sum"] += p_rf / p_max_rf
-            m_batch["rf_sum"] += m_rf / m_max_rf
-        p_batch["rf_avg"] = p_batch["rf_sum"] / k
-        m_batch["rf_avg"] = m_batch["rf_sum"] / k
-    d["prim"]["rf_avg_values"] = [b["rf_avg"] for b in d["prim"]["batchs"]]
-    d["maj"]["rf_avg_values"] = [b["rf_avg"] for b in d["maj"]["batchs"]]
-    d["prim"]["rf_avg"] = sum(d["prim"]["rf_avg_values"]) / NB_BATCH
-    d["maj"]["rf_avg"] = sum(d["maj"]["rf_avg_values"]) / NB_BATCH
+
+    for batch in d["prim"]["batchs"]:
+        cons = batch["cons"]
+        rf_sum = 0
+        for tree in batch["input"]:
+            rf, max_rf = tree.robinson_foulds(cons, unrooted_trees=True)[:2]
+            rf_sum += rf / max_rf
+        batch["rf"] = rf_sum / k
+    data[i]["prim"]["rf_values"] = [b["rf"] for b in d["prim"]["batchs"]]
+    data[i]["prim"]["rf_avg"] = sum(d["prim"]["rf_values"]) / NB_BATCH
+
+    for batch in d["maj"]["batchs"]:
+        cons = batch["cons"]
+        rf_sum = 0
+        for tree in batch["input"]:
+            rf, max_rf = tree.robinson_foulds(cons, unrooted_trees=True)[:2]
+            rf_sum += rf / max_rf
+        batch["rf"] = rf_sum / k
+    data[i]["maj"]["rf_values"] = [b["rf"] for b in d["maj"]["batchs"]]
+    data[i]["maj"]["rf_avg"] = sum(d["maj"]["rf_values"]) / NB_BATCH
 
 
 with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
     logging.info("Writing results to %s", OUTPUT_FILE)
     save = data.copy()
-    for d in save:
-        del d["prim"]["batchs"]
-        del d["maj"]["batchs"]
+    if not SAVE_BATCHS:
+        for d in save:
+            del d["prim"]["batchs"]
+            del d["maj"]["batchs"]
     json.dump(data, f, indent=4)
 
 logging.info("Process finished")
