@@ -7,7 +7,7 @@ from super_graph import SuperGraph
 from misc import create_unique_file
 
 
-def remove_unecessary_nodes(tree: ete3.Tree, leaves: list[str], 
+def remove_unecessary_nodes(tree: ete3.Tree, leaves: list[str],
                             average_on_merge: bool = False) -> None:
     """ Remove unnecessary / redundant internal nodes from a tree. 
         Modify the tree in place.
