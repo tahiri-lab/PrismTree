@@ -1,4 +1,4 @@
-""" Run several instance of primconstree and extended majority rule 
+""" Run several instance of primconstree and extended majority rule
     on different datasets, compute metrics, and save results in a file.
 """
 import os
@@ -132,9 +132,9 @@ def run_all_combinations(input_dir: str, k_values: list, n_values: list,
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-INPUT_DIR = "datasets/eval"
-OUTPUT_FILE = "outputs/eval/results.json"
-N = [8, 16, 32, 64, 128]
+INPUT_DIR = "src/experiment/data/hybrid_sim/coal"
+OUTPUT_FILE = "src/experiment/results/hs-coal.json"
+N = [10, 20, 30, 40, 50]
 K = [10, 30, 50, 70, 90]
 NWCK_FORMAT = 5
 BATCH_PER_COMB = 20
