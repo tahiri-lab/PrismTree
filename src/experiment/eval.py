@@ -139,11 +139,11 @@ def run_all_combinations(input_dir: str, k_values: list, n_values: list, c_value
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-INPUT_DIR = "src/experiment/data/hybrid_sim/coal"
-OUTPUT_FILE = "src/experiment/results/hs-coal2.json"
-N = [10, 20  ] #, 30, 40, 50]
-K = [10, 30  ] #, 50, 70, 90]
-C = [10, 7.5 ] #, 5, 2.5, 1]
+INPUT_DIR = "src/experiment/data/hs/coal"
+OUTPUT_FILE = "src/experiment/results/hs-coal.json"
+K = [90, 70, 50, 30, 10]
+N = [50, 40, 30, 20, 10]
+C = [10, 7.5, 5, 2.5, 1]
 NWCK_FORMAT = 5
 BATCH_PER_COMB = 3
 BENCHMARK = 10

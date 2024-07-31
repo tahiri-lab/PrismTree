@@ -32,7 +32,7 @@ def plot_data_points(data: dict, alg: str, metric: str, x_axis: str, ax: Axes, c
     ax.set_xticks(x_ticks)
 
 
-def plot_metric(data: dict, algs: dict[str, str], metric: str, ax1: Axes, ax2: Axes) -> None:
+def plot_metric(data: dict, algs: dict[str, str], metric: str, ax1: Axes, ax2: Axes, ax3: Axes) -> None:
     """ Plot the data points and mean curves for a given metric. Plot on one subplot
         for k (number of trees) and one for n (number of leaves).
 
@@ -42,7 +42,9 @@ def plot_metric(data: dict, algs: dict[str, str], metric: str, ax1: Axes, ax2: A
         metric (str): the metric to plot
         ax1 (Axes): subplot for k
         ax2 (Axes): subplot for n
+        ax3 (Axes): subplot for c
     """
     for alg, color in algs.items():
         plot_data_points(data, alg, metric, "k", ax1, color)
         plot_data_points(data, alg, metric, "n", ax2, color)
+        plot_data_points(data, alg, metric, "c", ax3, color)

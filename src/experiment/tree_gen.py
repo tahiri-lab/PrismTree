@@ -50,7 +50,7 @@ def generate_trees(nexus_in, nexus_out, k, n, c=1, block="coal"):
     absolute_path_out = Path(nexus_out + filename).resolve()
     java_cmd = ["java", "-jar", PATH_TO_HS, "-i", absolute_path_in, "-o", absolute_path_out]
     try:
-        subprocess.run(java_cmd)
+        subprocess.run(java_cmd, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
     except subprocess.CalledProcessError as e:
         print(f"An error occurred: {e}")
 
