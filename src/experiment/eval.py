@@ -5,13 +5,15 @@ import os
 import json
 import logging
 import timeit
+from io import StringIO
 from itertools import product
 from Bio.Phylo.Consensus import majority_consensus
-from Bio.Phylo import parse
+from Bio import Phylo
 import ete3
-from ..primconstree.misc import read_trees, phylo_to_ete3
+from ..primconstree.misc import phylo_to_ete3
 from ..primconstree.algorithm import primconstree
 from .distances import average_rf, average_bsd
+from .tree_gen import generate_trees
 
 
 def consensus(input_trees: list, alg: list) -> tuple[list[ete3.Tree], ete3.Tree, timeit.Timer]:
@@ -71,8 +73,8 @@ def run_consensus_batch(alg: str, input_trees: list, k: int,
     return instance
 
 
-def run_combination(input_dir: str, k: int, n: int, nb_batch: int,
-                    benchmark: int, nwk_format: int) -> dict:
+def run_combination(input_dir: str, k: int, n: int, c:int, nb_batch: int,
+                    benchmark: int) -> dict:
     """ Run consensus algorithms and collect metrics on a combination of parameters k and n.
         Algorithms used are PrimConsTree (pct), old version of PrimConsTree (old_pct)
         and Extended majority rule (maj).
@@ -81,25 +83,30 @@ def run_combination(input_dir: str, k: int, n: int, nb_batch: int,
         input_dir (str): directory containing input trees file, must contain a file named kxn.txt
         k (int): number of trees per batch
         n (int): number of leaves per tree
+        c (int): coalescence rate
         nb_batch (int): number of batches to process, input file must contain at least k*nb_batch trees
         benchmark (int): number of iterations for benchmark (0 for no benchmark)
-        nwk_format (int): newick format to read / write input trees
 
     Returns:
         dict: parameters and results for each algorithm
     """
     filename = f"{input_dir}/{k}x{n}.txt"
-    input_ete3 = read_trees(filename, nwk_format)
-    input_bio = list(parse(filename, "newick"))
-    prim = run_consensus_batch("pct", input_ete3, nb_batch, benchmark)
-    old_prim = run_consensus_batch("old_pct", input_ete3, nb_batch, benchmark)
-    maj = run_consensus_batch("maj", input_bio, nb_batch, benchmark)
+    nwks = generate_trees("src/experiment/data/hs/nexus_in", "src/experiment/data/hs/nexus_out", k*nb_batch, n, c, "coal")
+    input_ete3 = [ete3.Tree(nwk) for nwk in nwks]
+    input_bio = [Phylo.read(StringIO(nwk), "newick") for nwk in nwks]
+    if len(input_ete3) != k * nb_batch:
+        raise ValueError(f"Input sizes of {filename} ({len(input_ete3)}) does not match the number of k x batches : {k} x {nb_batch}")
+
+    prim = run_consensus_batch("pct", input_ete3, k, benchmark)
+    old_prim = run_consensus_batch("old_pct", input_ete3, k, benchmark)
+    maj = run_consensus_batch("maj", input_bio, k, benchmark)
     comb = {
         "file": filename,
         "nb_batch": nb_batch,
         "benchmark": benchmark,
         "k": k,
         "n": n,
+        "c": c,
         "pct": prim,
         "old_pct": old_prim,
         "maj": maj
@@ -107,40 +114,41 @@ def run_combination(input_dir: str, k: int, n: int, nb_batch: int,
     return comb
 
 
-def run_all_combinations(input_dir: str, k_values: list, n_values: list,
-                         nb_batch: int, benchmark: int, nwk_format: int) -> dict:
+def run_all_combinations(input_dir: str, k_values: list, n_values: list, c_values: list,
+                         nb_batch: int, benchmark: int) -> dict:
     """ Run all combinations of parameters k and n on a directory of input files
 
     Args:
         input_dir (str): directory containing input trees files
         k_values (list): list of k values (number of trees per batch)
         n_values (list): list of n values (number of leaves per tree)
+        c_values (list): list of c values (coalescence rate)
         nb_batch (int): number of batches per input file
         benchmark (int): number of iterations for benchmark (0 for no benchmark)
-        nwk_format (int): newick format to read / write input trees
 
     Returns:
         dict: results for each combination
     """
     combs = {}
-    for k, n in product(k_values, n_values):
-        logging.info("Processing combination k=%i n=%i with %i batches, and %i benchmark iterations",
-                    k, n, nb_batch, benchmark)
-        combs[f"{k}x{n}"] = run_combination(input_dir, k, n, nb_batch, benchmark, nwk_format)
+    for k, n, c in product(k_values, n_values, c_values):
+        logging.info("Processing combination k=%i n=%i c=%i with %i batches, and %i benchmark iterations",
+                    k, n, c, nb_batch, benchmark)
+        combs[f"{k}x{n}x{c}"] = run_combination(input_dir, k, n, c, nb_batch, benchmark)
     return combs
 
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 INPUT_DIR = "src/experiment/data/hybrid_sim/coal"
-OUTPUT_FILE = "src/experiment/results/hs-coal.json"
-N = [10, 20, 30, 40, 50]
-K = [10, 30, 50, 70, 90]
+OUTPUT_FILE = "src/experiment/results/hs-coal2.json"
+N = [10, 20  ] #, 30, 40, 50]
+K = [10, 30  ] #, 50, 70, 90]
+C = [10, 7.5 ] #, 5, 2.5, 1]
 NWCK_FORMAT = 5
-BATCH_PER_COMB = 20
+BATCH_PER_COMB = 3
 BENCHMARK = 10
 
-combinations = run_all_combinations(INPUT_DIR, K, N, BATCH_PER_COMB, BENCHMARK, NWCK_FORMAT)
+combinations = run_all_combinations(INPUT_DIR, K, N, C, BATCH_PER_COMB, BENCHMARK)
 
 os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
 with open(OUTPUT_FILE, "w") as f:
