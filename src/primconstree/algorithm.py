@@ -4,7 +4,6 @@ import logging
 from statistics import fmean
 import ete3
 from .super_graph import SuperGraph
-from .misc import create_unique_file
 
 
 def remove_unecessary_nodes(tree: ete3.Tree, leaves: list[str],
@@ -35,16 +34,13 @@ def remove_unecessary_nodes(tree: ete3.Tree, leaves: list[str],
             node.dist = fmean(lengths)
 
 
-def primconstree(inputs: list[ete3.Tree], outputfile: str = None, nwk_format: int = 0,
-                 old_prim: bool = False, avg_on_merge: bool = False,
+def primconstree(inputs: list[ete3.Tree], old_prim: bool = False, avg_on_merge: bool = False,
                  debug: bool = False) -> ete3.Tree:
     """ Generate the consensus tree from a set of phylogenetic trees
         using the PrimConsTree algorithm
 
     Args:
         inputs (list[ete3.Tree]): list of input trees
-        outputfile (str, optional): path of output file, if None, does not write to file. Defaults to None.
-        nwk_format (int, optional): newick format to write the file (see ete3 references tutorial). Defaults to 0.
         old_prim (bool, optional): if True, use previous mst criteria (min branch length and edge frequency) for modified_prim. Defaults to False.
         avg_on_merge (bool, optional): if True, use argument average_on_merge for remove_unecessary_nodes(). Defaults to False.
         debug (bool, optional): If True, display the super-graph / consensus tree at several steps. Defaults to False.
@@ -85,15 +81,6 @@ def primconstree(inputs: list[ete3.Tree], outputfile: str = None, nwk_format: in
         print("\nNodes distances to parent:")
         for n in tree.traverse():
             print("\t", n.name, "=>", n.dist)
-
-    # Writing the tree to a file
-    if outputfile:
-        logging.debug("Saving consensus tree to output file : %s", outputfile)
-        filename_unique = create_unique_file(outputfile)
-        if filename_unique != outputfile:
-            logging.warning("File %s already exists, writing to : %s", outputfile, filename_unique)
-        tree.write(outfile=filename_unique, format=nwk_format)
-        logging.debug("Saved consensus tree to output file : %s", filename_unique)
 
     return tree
     

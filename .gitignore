@@ -1,6 +1,7 @@
+datasets/eval/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
-src/experiment/data/
 *.py[cod]
 *$py.class
 
