@@ -94,7 +94,7 @@ NB_BATCH = 5 # number of batch per combination of parameters
 BENCHMARK = 2 # number of iteration on benchmark execution time (0 for no benchmark)
 
 
-# Execute evaluation on parameters combinations
+# Execute evaluation on each parameters combinations
 combinations = []
 for k, n, c, b in product(K, N, C, range(NB_BATCH)):
     logging.info("Processing combination k=%i n=%i c=%i b=%i batches, with %i benchmark iterations",
@@ -104,6 +104,7 @@ for k, n, c, b in product(K, N, C, range(NB_BATCH)):
     file_nex = f"{INPUT_NEX}/k{k}_n{n}_c{c}_b{b}.nexus"
     input_trees = read_trees(file_txt)
 
+    # Save parameters
     comb = {
         "file": file_txt,
         "k": k,
@@ -113,9 +114,12 @@ for k, n, c, b in product(K, N, C, range(NB_BATCH)):
         "benchmark": BENCHMARK,
         "inputs": [t.write() for t in input_trees]
     }
+    
+    # Evaluate consensus trees
     for a in ALGS:
         input_file = file_txt if a != "freq" else file_nex
         comb[a] = eval_consensus(a, input_file, input_trees, BENCHMARK)
+
     combinations.append(comb)
 
 

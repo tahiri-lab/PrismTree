@@ -6,7 +6,17 @@ from matplotlib.axes import Axes
 from math import log
 
 
-def plot_pct_complexity(data: list, alg: str, x_axis: str, ax: Axes, color: str, scale: int):
+def plot_complexity(data: list, alg: str, x_axis: str, ax: Axes, color: str, scale: float):
+    """ Plot algorithm theorical complexity for varying n or k
+
+    Args:
+        data (list[dict]): result from eval_consensus
+        alg (str): the alg to plot the complexity of
+        x_axis (str): the x axis of the plot (n or k)
+        ax (Axes): the subplot to plot on
+        color (str): color of the curve
+        scale (float): a scale factor so the curve can be compared to execution time
+    """
     points = []
     distinct_k = sorted(list(set(inst["k"] for inst in data)))
     distinct_n = sorted(list(set(inst["n"] for inst in data)))

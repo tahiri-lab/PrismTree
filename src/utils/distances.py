@@ -1,9 +1,19 @@
 """ Implementation of metrics to compare trees
 """
 from math import sqrt
+import ete3
 
 
-def average_rf(input_trees, consensus):
+def average_rf(input_trees: list[ete3.Tree], consensus: ete3.Tree) -> float:
+    """ Compute the average normalized Robinson and Foulds distance between the input trees and the consensus
+
+    Args:
+        input_trees (list[ete3.Tree]): the list of input trees
+        consensus (ete3.Tree): the consensus computed with any algorithm
+
+    Return:
+        float: the average normalized rf distance
+    """
     rf_sum = 0
     for tree in input_trees:
         rf, max_rf = tree.robinson_foulds(consensus, unrooted_trees=True)[:2]
@@ -11,7 +21,17 @@ def average_rf(input_trees, consensus):
     return rf_sum / len(input_trees)
 
 
-def bsd(t1, t2, normalize=True):
+def bsd(t1: ete3.Tree, t2: ete3.Tree, normalize: bool = True) -> float:
+    """ Compute the Branch Score Distance between two trees with branch length
+    
+    Args:
+        t1 (ete3.Tree): tree to compare
+        t2 (ete3.Tree): tree to compare
+        normalize (bool): if True, the distance between each bipartition is normalized with respect to the lenght of its tree
+    
+    Return:
+        float: the bsd between t1 and t2
+    """
     # Get distance of each bipartition in each tree
     dist_t1 = {}
     for node in t1.traverse():
@@ -40,7 +60,17 @@ def bsd(t1, t2, normalize=True):
     return sqrt(sum(diffs))
 
 
-def average_bsd(input_trees, consensus, normalize=True):
+def average_bsd(input_trees: list[ete3.Tree], consensus: ete3.Tree, normalize: bool = True) -> float:
+    """ Compute the average Branch Score Distance between the input trees and the consensus
+
+    Args:
+        input_trees (list[ete3.Tree]): the list of input trees
+        consensus (ete3.Tree): the consensus computed with any algorithm
+        normalize (bool): if True, distance between 2 trees is normalized with respect to the total length of each tree
+
+    Return:
+        float: the average normalized bsd distance
+    """
     total = 0
     for tree in input_trees:
         total += bsd(tree, consensus, normalize)
