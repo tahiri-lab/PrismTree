@@ -7,8 +7,10 @@ import re
 import os
 import tempfile
 import shutil
+import logging
 from contextlib import contextmanager
 from itertools import product
+from utils.trees import map_to_fact
 
 coal_pattern = re.compile(r'\[Randomly selected coalescent trees \(with generating lineage trees as comments\)\](.*?)END;', re.DOTALL)
 tree_pattern = re.compile(r'=(.*?)\n')
@@ -37,6 +39,7 @@ end;
 """
 
 
+
 @contextmanager
 def temp_dir():
     temp_dir = tempfile.mkdtemp()
@@ -52,16 +55,14 @@ def generate_FACT(trees: list[str]) -> str:
     content = "BEGIN TREES;\ntranslate\n"
     taxa = list(ete3.Tree(trees[0]).get_leaf_names())
     taxa_formated = []
-    trees_formated = trees.copy()
 
-    for i, tax in enumerate(taxa, start=1):
-        taxa_formated.append(f"{i} random_taxa_{i}")
-        for j, t in enumerate(trees_formated):
-            trees_formated[j] = t.replace(tax + ":", str(i) + ":")
+    for tax in taxa:
+        taxa_formated.append(f"{leaves_map[tax]} random_taxa_{leaves_map[tax]}")
+    taxa_formated = sorted(taxa_formated, key = lambda x: int(x.split(" ")[0]))
     content += ",\n".join(taxa_formated) + ";\n"
 
-    for i, t in enumerate(trees_formated, start=1):
-        content += f"tree {i} = {t}\n"
+    for i, t in enumerate(trees, start=1):
+        content += f"tree {i} = {map_to_fact(t)}\n"
     content += "END;\n"
 
     return content
@@ -69,8 +70,6 @@ def generate_FACT(trees: list[str]) -> str:
 def generate_hs(hs: str, k: int, n: int, c: float, n_batch: int) -> list[list[str]]:
     """ Generate a list of phylogenetic trees with HybridSim
     """
-    assert k > 0 and n > 0 and c > 0 and n_batch > 0, "Simulations parameters should be strictly positives"
-
     with temp_dir() as nexus_dir:
         # Write the params in the input file
         params = default_params.format(c, n, k*n_batch)
@@ -99,6 +98,8 @@ def generate_hs(hs: str, k: int, n: int, c: float, n_batch: int) -> list[list[st
     return [trees[i*k:(i+1)*k] for i in range(n_batch)]
 
 
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
 K = [90, 70, 50, 30, 10] # values for number of trees
 N = [50, 40, 30, 20, 10] # values for number of leaves
 C = [10, 7.5, 5, 2.5, 1] # valurs for coalescence rate
@@ -109,6 +110,7 @@ DIR_FACT = Path("datasets/eval/FACT") # directory to store nexus files for FACT 
 HS_PATH = "/home/maggie/Dev/HybridSim/hybridsim319.jar" # path to the hybridsim java program
 
 for k, n, c in product(K, N, C):
+    logging.info("Generatig trees for combination k=%i n=%i c=%i.", k, n, c)
     batches = generate_hs(HS_PATH, k, n, c, NB_BATCH)
     for i, b in enumerate(batches):
         path_nwk = DIR_NWK / (f"k{k}_n{n}_c{c}_b{i}.txt")

@@ -3,6 +3,36 @@
 from statistics import fmean
 import seaborn as sns
 from matplotlib.axes import Axes
+from math import log
+
+
+def plot_pct_complexity(data: list, alg: str, x_axis: str, ax: Axes, color: str, scale: int):
+    points = []
+    distinct_k = sorted(list(set(inst["k"] for inst in data)))
+    distinct_n = sorted(list(set(inst["n"] for inst in data)))
+    mean_k = fmean(distinct_k)
+    mean_n = fmean(distinct_n)
+    if x_axis == "k":
+        distinct_x = distinct_k
+    else:
+        distinct_x = distinct_n
+
+    for x in distinct_x:
+        if alg == "pct":
+            label = "nk*log(nk)*scale_factor"
+            if x_axis == "k":
+                points.append((x, (mean_n*x*log(mean_n*x))*scale))
+            elif x_axis == "n":
+                points.append((x, (mean_k*x*log(mean_k*x))*scale))
+        else:
+            raise NotImplementedError()
+
+    points = sorted(points, key=lambda x: x[0])
+    x_ticks = sorted(list(set([x for x, _ in points])))
+    x_values, y_values = zip(*points)
+
+    ax.plot(x_values, y_values, marker='o', linestyle='-', color=color, label=label)
+    ax.set_xticks(x_ticks)
 
 
 def plot_data_points(data: list, alg: str, metric: str, x_axis: str, ax: Axes, color: str) -> None:

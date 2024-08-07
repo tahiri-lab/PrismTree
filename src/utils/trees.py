@@ -33,3 +33,27 @@ def phylo_to_ete3(tree: Phylo.BaseTree.Tree) -> ete3.Tree:
     newick = tree.format("newick")
     ete_tree = ete3.Tree(newick)
     return ete_tree
+
+leaves_map = {
+    "A": "1", "B": "2", "C": "3", "D": "4", "E": "5", "F": "6", "G": "7", "H": "8", "I": "9", "J": "10", "K": "11", "L": "12", "M": "13",
+    "N": "14", "O": "15", "P": "16", "Q": "17", "R": "18", "S": "19", "T": "20", "U": "21", "V": "22", "W": "23", "X": "24", "Y": "25", "Z": "26",
+    "A1": "27", "B1": "28", "C1": "29", "D1": "30", "E1": "31", "F1": "32", "G1": "33", "H1": "34", "I1": "35", "J1": "36", "K1": "37", "L1": "38", "M1": "39",
+    "N1": "40", "O1": "41", "P1": "42", "Q1": "43", "R1": "44", "S1": "45", "T1": "46", "U1": "47", "V1": "48", "W1": "49", "X1": "50", "Y1": "51", "Z1": "52"
+}
+
+def map_to_fact(tree: str):
+    mapped = tree
+    for k, v in leaves_map.items():
+        sub1, rep1 = f"({k}:", f"({v}:"
+        sub2, rep2 = f",{k}:", f",{v}:"
+        mapped = mapped.replace(sub1, rep1).replace(sub2, rep2)
+    return mapped
+
+
+def map_from_fact(tree: str):
+    mapped = tree
+    for k, v in leaves_map.items():
+        sub1, rep1 = f"({v},", f"({k},"
+        sub2, rep2 = f",{v})", f",{k})"
+        mapped = mapped.replace(sub1, rep1).replace(sub2, rep2)
+    return mapped

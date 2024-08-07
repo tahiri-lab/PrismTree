@@ -4,49 +4,62 @@
 import logging
 import json
 import os
+import subprocess
 from itertools import product
 import timeit
 from Bio.Phylo.Consensus import majority_consensus
 from Bio import Phylo
 import ete3
-from utils.trees import phylo_to_ete3, read_trees
+from utils.trees import phylo_to_ete3, read_trees, map_from_fact
 from primconstree.algorithm import primconstree
 from utils.distances import average_rf, average_bsd
 from utils.misc import create_unique_file
 
 
-def consensus(input_trees: list, alg: list) -> tuple[list[ete3.Tree], ete3.Tree, timeit.Timer]:
+PATH_TO_FACT2 = "/home/maggie/Dev/FACT2/src/FACT++"
+
+
+def consensus(filename: str, alg: list) -> tuple[ete3.Tree, timeit.Timer]:
     """ Compute the consensus tree from a list of input trees using the specified algorithm
 
     Args:
-        input_trees (list): list of input trees (ete3 for pct, Bio.Phylo for maj)
+        filename (str): appropriate input file for the consensus method
         alg (str): algorithm to use (pct, old_pct, maj)
 
     Returns:
-        tuple: input trees, consensus, timit timer for benchmark
+        tuple: consensus, timit timer for benchmark
     """
     if alg == "pct":
+        input_trees = read_trees(filename)
         cons = primconstree(input_trees, False, False, False)
         tm = timeit.Timer(lambda: primconstree(input_trees, False, False, False))
-        return input_trees, cons, tm
+        return cons, tm
     if alg == "old_pct":
+        input_trees = read_trees(filename)
         cons = primconstree(input_trees, True, False, False)
         tm = timeit.Timer(lambda: primconstree(input_trees, True, False, False))
-        return input_trees, cons, tm
+        return cons, tm
     if alg == "maj":
+        input_trees = list(Phylo.parse(filename, "newick"))
         cons = phylo_to_ete3(majority_consensus(input_trees, 0))
         tm = timeit.Timer(lambda: majority_consensus(input_trees, 0))
-        input_ete3 = [phylo_to_ete3(t) for t in input_trees]
-        return input_ete3, cons, tm
+        return cons, tm
+    if alg == "freq":
+        cmd = [PATH_TO_FACT2, "freq", filename]
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        cons = ete3.Tree(map_from_fact(result.stdout.replace('\n', ';')))
+        return cons, None
+    
     raise ValueError(f"Unknown algorithm {alg}")
 
 
-def eval_consensus(alg: str, input_trees: list, benchmark: int) -> dict:
+def eval_consensus(alg: str, filename: str, input_trees: list[ete3.Tree], benchmark: int) -> dict:
     """ Compute consensus trees and metrics for several batches of input trees
 
     Args:
         alg (str): algorithm to use (pct, old_pct, maj)
-        input_trees (list): list of input trees (ete3 for pct, Bio.Phylo for maj)
+        filename (str): input file for the consensus
+        input_trees (list): list of input trees as ete3 objects
         benchmark (int): number of iterations for benchmark (0 for no benchmark)
 
     Returns:
@@ -54,27 +67,29 @@ def eval_consensus(alg: str, input_trees: list, benchmark: int) -> dict:
     """
     logging.info("Processing algorithm %s", alg)
 
-    batch_input, batch_cons, tm = consensus(input_trees, alg)
-    if benchmark > 0:
+    cons, tm = consensus(filename, alg)
+    if benchmark > 0 and tm is not None:
         duration = tm.timeit(benchmark)
     else:
         duration = 0
 
     return {
-        "cons": batch_cons.write(),
-        "rf": average_rf(batch_input, batch_cons),
-        "bsd": average_bsd(batch_input, batch_cons, True),
+        "cons": cons.write(),
+        "rf": average_rf(input_trees, cons),
+        "bsd": average_bsd(input_trees, cons, True) if alg != "freq" else 0,
         "duration": duration
     }
 
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-INPUT_DIR = "datasets/eval/HS" # directory to take the inputs from
+INPUT_TXT = "datasets/eval/HS" # directory to take the inputs from
+INPUT_NEX = "datasets/eval/FACT" # directory to take the inputs for FACT2 algorithms
 RESULTS_FILE = "outputs/eval/HS.json" # file to output the results
 K = [90, 70, 50, 30, 10] # values for number of trees
 N = [50, 40, 30, 20, 10] # values for number of leaves
 C = [10, 7.5, 5, 2.5, 1] # valurs for coalescence rate
+ALGS = ["pct", "maj", "freq"]
 NB_BATCH = 5 # number of batch per combination of parameters
 BENCHMARK = 2 # number of iteration on benchmark execution time (0 for no benchmark)
 
@@ -85,22 +100,22 @@ for k, n, c, b in product(K, N, C, range(NB_BATCH)):
     logging.info("Processing combination k=%i n=%i c=%i b=%i batches, with %i benchmark iterations",
                 k, n, c, b, BENCHMARK)
 
-    filename = f"{INPUT_DIR}/k{k}_n{n}_c{c}_b{b}.txt"
-    input_ete3 = read_trees(filename)
-    input_bio = list(Phylo.parse(filename, "newick"))
+    file_txt = f"{INPUT_TXT}/k{k}_n{n}_c{c}_b{b}.txt"
+    file_nex = f"{INPUT_NEX}/k{k}_n{n}_c{c}_b{b}.nexus"
+    input_trees = read_trees(file_txt)
 
     comb = {
-        "file": filename,
+        "file": file_txt,
         "k": k,
         "n": n,
         "c": c,
         "batch": b,
         "benchmark": BENCHMARK,
-        "inputs": [t.write() for t in input_ete3],
-        "pct": eval_consensus("pct", input_ete3, BENCHMARK),
-        "old_pct": eval_consensus("old_pct", input_ete3, BENCHMARK),
-        "maj": eval_consensus("maj", input_bio, BENCHMARK)
+        "inputs": [t.write() for t in input_trees]
     }
+    for a in ALGS:
+        input_file = file_txt if a != "freq" else file_nex
+        comb[a] = eval_consensus(a, input_file, input_trees, BENCHMARK)
     combinations.append(comb)
 
 
