@@ -29,6 +29,7 @@ def remove_unecessary_nodes(tree: ete3.Tree, leaves: list[str],
                     accumulated_lengths[c] = [c.dist]
                 accumulated_lengths[c].append(node.dist)
                 node.delete(prevent_nondicotomic = False, preserve_branch_length = True)
+        
     if average_on_merge:
         for node, lengths in accumulated_lengths.items():
             node.dist = fmean(lengths)
@@ -72,6 +73,8 @@ def primconstree(inputs: list[ete3.Tree], old_prim: bool = False, avg_on_merge: 
     # Cleaning the tree from unnecessary nodes
     remove_unecessary_nodes(tree, list(super_graph.leaves.values()), avg_on_merge)
     tree = super_graph.replace_leaves_names(tree)
+    while len(tree.children) == 1:
+        tree = tree.children[0]
     logging.debug("Proper consensus tree generated from MST (avg_on_merge = %s)", str(avg_on_merge))
     if debug:
         print("\nFinal consensus tree:\n")

@@ -74,5 +74,6 @@ def map_from_fact(tree: str) -> str:
     for k, v in LEAVES_MAP.items():
         sub1, rep1 = f"({v},", f"({k},"
         sub2, rep2 = f",{v})", f",{k})"
-        mapped = mapped.replace(sub1, rep1).replace(sub2, rep2)
+        sub3, rep3 = f",{v},", f",{k},"
+        mapped = mapped.replace(sub1, rep1).replace(sub2, rep2).replace(sub3, rep3)
     return mapped

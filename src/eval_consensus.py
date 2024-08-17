@@ -12,10 +12,11 @@ from Bio import Phylo
 import ete3
 from utils.trees import phylo_to_ete3, read_trees, map_from_fact
 from primconstree.algorithm import primconstree
-from utils.distances import average_rf, average_bsd
+from utils.distances import average_rf, average_bsd, average_tqd
 from utils.misc import create_unique_file
 
 
+PATH_TO_FACT1 = "/home/maggie/Dev/FACT/src/a"
 PATH_TO_FACT2 = "/home/maggie/Dev/FACT2/src/FACT++"
 
 
@@ -49,6 +50,11 @@ def consensus(filename: str, alg: list) -> tuple[ete3.Tree, timeit.Timer]:
         result = subprocess.run(cmd, capture_output=True, text=True)
         cons = ete3.Tree(map_from_fact(result.stdout.replace('\n', ';')))
         return cons, None
+    if alg == "maj_plus":
+        cmd = ["./src/utils/fact1.sh", PATH_TO_FACT1, filename, "100000000"]
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        cons = ete3.Tree(map_from_fact(result.stdout.replace('\n', ';')))
+        return cons, None
     
     raise ValueError(f"Unknown algorithm {alg}")
 
@@ -76,7 +82,9 @@ def eval_consensus(alg: str, filename: str, input_trees: list[ete3.Tree], benchm
     return {
         "cons": cons.write(),
         "rf": average_rf(input_trees, cons),
-        "bsd": average_bsd(input_trees, cons, True) if alg != "freq" else 0,
+        "bsd": average_bsd(input_trees, cons, True),
+        "tdist": average_tqd(input_trees, cons, "triplet_dist"),
+        "qdist": average_tqd(input_trees, cons, "quartet_dist"),
         "duration": duration
     }
 
@@ -85,11 +93,11 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 INPUT_TXT = "datasets/eval/HS" # directory to take the inputs from
 INPUT_NEX = "datasets/eval/FACT" # directory to take the inputs for FACT2 algorithms
-RESULTS_FILE = "outputs/eval/HS.json" # file to output the results
-K = [90, 70, 50, 30, 10] # values for number of trees
-N = [50, 40, 30, 20, 10] # values for number of leaves
-C = [10, 7.5, 5, 2.5, 1] # valurs for coalescence rate
-ALGS = ["pct", "maj", "freq"]
+RESULTS_FILE = "outputs/eval/HS-FINAL.json" # file to output the results
+K = [10, 30, 50, 70, 90] # values for number of trees
+N = [10, 20, 30, 40, 50] # values for number of leaves
+C = [10, 7.5, 5, 2.5, 1] # values for coalescence rate
+ALGS = ["pct", "freq", "maj", "maj_plus"] # algorithms to perfoem (maj, pct, old_pct, freq)
 NB_BATCH = 5 # number of batch per combination of parameters
 BENCHMARK = 2 # number of iteration on benchmark execution time (0 for no benchmark)
 
@@ -117,7 +125,7 @@ for k, n, c, b in product(K, N, C, range(NB_BATCH)):
     
     # Evaluate consensus trees
     for a in ALGS:
-        input_file = file_txt if a != "freq" else file_nex
+        input_file = file_nex if a in ["freq", "maj_plus"] else file_txt
         comb[a] = eval_consensus(a, input_file, input_trees, BENCHMARK)
 
     combinations.append(comb)

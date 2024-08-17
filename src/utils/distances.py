@@ -1,7 +1,11 @@
 """ Implementation of metrics to compare trees
 """
 from math import sqrt
+from itertools import combinations
 import ete3
+from Bio.Phylo import read
+from io import StringIO
+import subprocess
 
 
 def average_rf(input_trees: list[ete3.Tree], consensus: ete3.Tree) -> float:
@@ -19,6 +23,33 @@ def average_rf(input_trees: list[ete3.Tree], consensus: ete3.Tree) -> float:
         rf, max_rf = tree.robinson_foulds(consensus, unrooted_trees=True)[:2]
         rf_sum += rf / max_rf
     return rf_sum / len(input_trees)
+
+
+def average_tqd(input_trees: list[ete3.Tree], consensus: ete3.Tree, exec: str) -> float:
+    """ Compute the average triplet/quartet distance between the input trees and the consensus
+
+    Args:
+        input_trees (list[ete3.Tree]): the list of input trees
+        consensus (ete3.Tree): the consensus computed with any algorithm
+        exec (str): quartet_dist | triplet_dist
+
+    Return:
+        float: the average triplet distance
+    """
+    dist = 0
+    minus = 0
+    for tree in input_trees:
+        cmd = ["./src/utils/tqdist.sh", exec, tree.write(format=9), consensus.write(format=9)]
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        try:
+            dist += float(result.stdout)
+        except Exception:
+            print(f"WARNING error computing the {exec} distance metric !!!!\n executable stdrr: '{result.stderr}'")
+            print(consensus.write())
+            print(tree.write())
+            print()
+            minus += 1
+    return dist/(len(tree) - minus)
 
 
 def bsd(t1: ete3.Tree, t2: ete3.Tree, normalize: bool = True) -> float:
