@@ -16,8 +16,8 @@ from utils.distances import average_rf, average_bsd, average_tqd
 from utils.misc import create_unique_file
 
 
-PATH_TO_FACT1 = "/home/maggie/Dev/FACT/src/a"
-PATH_TO_FACT2 = "/home/maggie/Dev/FACT2/src/FACT++"
+PATH_TO_FACT1 = "" #FACT compiled binary
+PATH_TO_FACT2 = "" #FACT2 compiled binary
 
 
 def consensus(filename: str, alg: list) -> tuple[ete3.Tree, timeit.Timer]:

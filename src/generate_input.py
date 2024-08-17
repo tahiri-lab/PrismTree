@@ -107,7 +107,7 @@ NB_BATCH = 5 # number of batch per combination of parameters
 
 DIR_NWK = Path("datasets/eval/HS") # directory to store input files
 DIR_FACT = Path("datasets/eval/FACT") # directory to store nexus files for FACT package
-HS_PATH = "/home/maggie/Dev/HybridSim/hybridsim319.jar" # path to the hybridsim java program
+HS_PATH = "" # path to the hybridsim java program (.jar)
 
 for k, n, c in product(K, N, C):
     logging.info("Generatig trees for combination k=%i n=%i c=%i.", k, n, c)
