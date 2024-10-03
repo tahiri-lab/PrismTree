@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36" version="24.7.17" pages="21">
   <diagram name="w/ clustering JMB-07-2024" id="fV9josbJJ1F1swsdE0nr">
-    <mxGraphModel dx="1434" dy="1915" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="819" dy="1595" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="wkOS3hvKACZuOLtXEWlo-0" />
         <mxCell id="wkOS3hvKACZuOLtXEWlo-1" parent="wkOS3hvKACZuOLtXEWlo-0" />
@@ -94,25 +94,25 @@
           <mxGeometry x="451.5299999999999" y="-18" width="116.47" height="118" as="geometry" />
         </mxCell>
         <mxCell id="wkOS3hvKACZuOLtXEWlo-9" value="b" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#bdbcbc;rotation=0;fontStyle=0;verticalAlign=bottom;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;spacingBottom=0;spacingLeft=1;" parent="wkOS3hvKACZuOLtXEWlo-1" vertex="1">
-          <mxGeometry x="451.5299999999999" y="-18.995000000000108" width="25.897343862167983" height="25.897343862167983" as="geometry" />
+          <mxGeometry x="451.5299999999999" y="-18.995000000000104" width="25.897343862167983" height="25.897343862167983" as="geometry" />
         </mxCell>
         <mxCell id="wkOS3hvKACZuOLtXEWlo-10" value="Tree-to-Graph Transformation" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" parent="wkOS3hvKACZuOLtXEWlo-1" vertex="1">
           <mxGeometry x="620" y="-18" width="380" height="118" as="geometry" />
         </mxCell>
         <mxCell id="wkOS3hvKACZuOLtXEWlo-11" value="c" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#bdbcbc;rotation=0;fontStyle=0;verticalAlign=bottom;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;spacingBottom=1;" parent="wkOS3hvKACZuOLtXEWlo-1" vertex="1">
-          <mxGeometry x="620" y="-18.99500000000012" width="25.897343862167983" height="25.897343862167983" as="geometry" />
+          <mxGeometry x="620" y="-18.995000000000104" width="25.897343862167983" height="25.897343862167983" as="geometry" />
         </mxCell>
         <mxCell id="wkOS3hvKACZuOLtXEWlo-12" value="Modified&amp;nbsp;&lt;div&gt;Algorithm of Prim&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" parent="wkOS3hvKACZuOLtXEWlo-1" vertex="1">
           <mxGeometry x="1039.58" y="-18" width="240" height="118" as="geometry" />
         </mxCell>
         <mxCell id="wkOS3hvKACZuOLtXEWlo-13" value="d" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#bdbcbc;rotation=0;verticalAlign=bottom;fontStyle=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;spacingBottom=0;" parent="wkOS3hvKACZuOLtXEWlo-1" vertex="1">
-          <mxGeometry x="1039.58" y="-18.99500000000012" width="25.897343862167983" height="25.897343862167983" as="geometry" />
+          <mxGeometry x="1039.58" y="-18.995000000000104" width="25.897343862167983" height="25.897343862167983" as="geometry" />
         </mxCell>
         <mxCell id="wkOS3hvKACZuOLtXEWlo-14" value="MST to&amp;nbsp;&lt;div&gt;consensus tree&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;rotation=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" parent="wkOS3hvKACZuOLtXEWlo-1" vertex="1">
           <mxGeometry x="1320" y="-18" width="200" height="118" as="geometry" />
         </mxCell>
         <mxCell id="wkOS3hvKACZuOLtXEWlo-15" value="e" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=20;fillColor=#bdbcbc;rotation=-360;fontStyle=0;align=center;verticalAlign=bottom;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;spacingBottom=1;spacingLeft=1;" parent="wkOS3hvKACZuOLtXEWlo-1" vertex="1">
-          <mxGeometry x="1320" y="-18.99500000000012" width="25.897343862167983" height="25.897343862167983" as="geometry" />
+          <mxGeometry x="1320" y="-18.995000000000104" width="25.897343862167983" height="25.897343862167983" as="geometry" />
         </mxCell>
         <mxCell id="wkOS3hvKACZuOLtXEWlo-17" value="" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;rotation=0;" parent="wkOS3hvKACZuOLtXEWlo-1" vertex="1">
           <mxGeometry x="620" y="-560" width="380" height="524" as="geometry" />
