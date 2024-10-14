@@ -12,16 +12,16 @@ from Bio import Phylo
 import ete3
 from utils.trees import phylo_to_ete3, read_trees, map_from_fact, set_cst_length    
 from primconstree.algorithm import primconstree
-from utils.distances import average_rf, average_bsd, average_tqd
+from utils.distances import average_rf, average_bsd, average_tqd, average_kc
 from utils.misc import create_unique_file
 
 
-PATH_TO_FACT1 = "/PATH/TO/fact" #FACT compiled binary
-PATH_TO_FACT2 = "/PATH/TO/fact2" #FACT2 compiled binary
+PATH_TO_FACT1 = "src/tools/fact" #FACT compiled binary
+PATH_TO_FACT2 = "src/tools/fact2" #FACT2 compiled binary
 
 
 def consensus(filename: str, alg: list) -> tuple[ete3.Tree, timeit.Timer]:
-    """ Compute the consensus tree from a list of input trees using the specified algorithm
+    """ Com pute the consensus tree from a list of input trees using the specified algorithm
 
     Args:
         filename (str): appropriate input file for the consensus method
@@ -88,11 +88,14 @@ def eval_consensus(alg: str, filename: str, input_trees: list[ete3.Tree], benchm
 
     return {
         "cons": cons.write(),
-        "rf": average_rf(input_trees, cons),
-        "bsd": average_bsd(input_trees, cons, True),
-        "tdist": average_tqd(input_trees, cons, "triplet_dist"),
-        "qdist": average_tqd(input_trees, cons, "quartet_dist"),
-        "duration": duration
+        #"rf": average_rf(input_trees, cons),
+        #"bsd": average_bsd(input_trees, cons, True),
+        #"tdist": average_tqd(input_trees, cons, "triplet_dist"),
+        #"qdist": average_tqd(input_trees, cons, "quartet_dist"),
+        "kcdist0": average_kc(input_trees, cons, 0),
+        "kcdist0.5": average_kc(input_trees, cons, 0.5),
+        #"kcdist1": average_kc(input_trees, cons, 1),
+        #"duration": duration
     }
 
 
@@ -101,12 +104,12 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 INPUT_TXT = "datasets/eval/HS" # directory to take the inputs from
 INPUT_NEX = "datasets/eval/FACT" # directory to take the inputs for FACT2 algorithms
 RESULTS_FILE = "outputs/eval/HS-FINAL.json" # file to output the results
-K = [10, 30, 50, 70, 90] # values for number of trees
+K = [10, 30, 50, 70, 90, 110, 130] # values for number of trees
 N = [10, 20, 30, 40, 50] # values for number of leaves
 C = [10, 7.5, 5, 2.5, 1] # values for coalescence rate
 ALGS = ["pct", "freq", "maj", "old_pct"] # algorithms to perfoem (maj, pct, old_pct, freq)
 NB_BATCH = 5 # number of batch per combination of parameters
-BENCHMARK = 3 # number of iteration on benchmark execution time (0 for no benchmark)
+BENCHMARK = 0 # number of iteration on benchmark execution time (0 for no benchmark)
 
 
 # Execute evaluation on each parameters combinations

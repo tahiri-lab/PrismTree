@@ -100,14 +100,14 @@ def generate_hs(hs: str, k: int, n: int, c: float, n_batch: int) -> list[list[st
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-K = [90, 70, 50, 30, 10] # values for number of trees
+K = [130, 110, 90, 70, 50, 30, 10] # values for number of trees
 N = [50, 40, 30, 20, 10] # values for number of leaves
 C = [10, 7.5, 5, 2.5, 1] # valurs for coalescence rate
 NB_BATCH = 5 # number of batch per combination of parameters
 
 DIR_NWK = Path("datasets/eval/HS") # directory to store input files
 DIR_FACT = Path("datasets/eval/FACT") # directory to store nexus files for FACT package
-HS_PATH = "/PATH/TO/hybridsim.jar" # path to the hybridsim java program (.jar)
+HS_PATH = "src/tools/hybridsim319.jar" # path to the hybridsim java program (.jar)
 
 os.makedirs(DIR_NWK, exist_ok=True)
 os.makedirs(DIR_FACT, exist_ok=True)

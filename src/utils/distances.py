@@ -7,6 +7,7 @@ from Bio.Phylo import read
 from io import StringIO
 import subprocess
 import math
+from .kcdist import KC_dist
 
 
 def average_rf(input_trees: list[ete3.Tree], consensus: ete3.Tree) -> float:
@@ -24,6 +25,14 @@ def average_rf(input_trees: list[ete3.Tree], consensus: ete3.Tree) -> float:
         rf, max_rf = tree.robinson_foulds(consensus, unrooted_trees=True)[:2]
         rf_sum += rf / max_rf
     return rf_sum / len(input_trees)
+
+
+def average_kc(input_trees: list[ete3.Tree], consensus: ete3.Tree, lamb: float) -> float:
+    dist = 0
+    cons = consensus.write()
+    for t in input_trees:
+        dist += KC_dist(cons, t.write(), lamb)
+    return dist/len(input_trees)
 
 
 def average_tqd(input_trees: list[ete3.Tree], consensus: ete3.Tree, exec: str) -> float:
