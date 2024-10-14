@@ -6,6 +6,7 @@ import ete3
 from Bio.Phylo import read
 from io import StringIO
 import subprocess
+import math
 
 
 def average_rf(input_trees: list[ete3.Tree], consensus: ete3.Tree) -> float:
@@ -38,18 +39,19 @@ def average_tqd(input_trees: list[ete3.Tree], consensus: ete3.Tree, exec: str) -
     """
     dist = 0
     minus = 0
+    max_dist = 2*math.comb(len(consensus.get_leaves()), 3 if exec=="triplet_dist" else 4)
     for tree in input_trees:
         cmd = ["./src/utils/tqdist.sh", exec, tree.write(format=9), consensus.write(format=9)]
         result = subprocess.run(cmd, capture_output=True, text=True)
         try:
-            dist += float(result.stdout)
+            dist += float(result.stdout) / max_dist
         except Exception:
             print(f"WARNING error computing the {exec} distance metric !!!!\n executable stdrr: '{result.stderr}'")
             print(consensus.write())
             print(tree.write())
             print()
             minus += 1
-    return dist/(len(tree) - minus)
+    return dist/(len(input_trees) - minus)
 
 
 def bsd(t1: ete3.Tree, t2: ete3.Tree, normalize: bool = True) -> float:

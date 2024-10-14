@@ -10,14 +10,14 @@ import timeit
 from Bio.Phylo.Consensus import majority_consensus
 from Bio import Phylo
 import ete3
-from utils.trees import phylo_to_ete3, read_trees, map_from_fact
+from utils.trees import phylo_to_ete3, read_trees, map_from_fact, set_cst_length    
 from primconstree.algorithm import primconstree
 from utils.distances import average_rf, average_bsd, average_tqd
 from utils.misc import create_unique_file
 
 
-PATH_TO_FACT1 = "" #FACT compiled binary
-PATH_TO_FACT2 = "" #FACT2 compiled binary
+PATH_TO_FACT1 = "/PATH/TO/fact" #FACT compiled binary
+PATH_TO_FACT2 = "/PATH/TO/fact2" #FACT2 compiled binary
 
 
 def consensus(filename: str, alg: list) -> tuple[ete3.Tree, timeit.Timer]:
@@ -30,6 +30,12 @@ def consensus(filename: str, alg: list) -> tuple[ete3.Tree, timeit.Timer]:
     Returns:
         tuple: consensus, timit timer for benchmark
     """
+    def fcdt(input_file):
+        cmd = [PATH_TO_FACT2, "freq", input_file]
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        cons = ete3.Tree(map_from_fact(result.stdout.replace('\n', ';')))
+        return set_cst_length(cons, 1)
+
     if alg == "pct":
         input_trees = read_trees(filename)
         cons = primconstree(input_trees, False, False, False)
@@ -41,19 +47,20 @@ def consensus(filename: str, alg: list) -> tuple[ete3.Tree, timeit.Timer]:
         tm = timeit.Timer(lambda: primconstree(input_trees, True, False, False))
         return cons, tm
     if alg == "maj":
-        input_trees = list(Phylo.parse(filename, "newick"))
-        cons = phylo_to_ete3(majority_consensus(input_trees, 0))
+        input_trees = list(Phylo.parse(filename, "newick")) 
+        bio_cons = majority_consensus(input_trees, 0)
+        cons = phylo_to_ete3(bio_cons)
         tm = timeit.Timer(lambda: majority_consensus(input_trees, 0))
         return cons, tm
     if alg == "freq":
-        cmd = [PATH_TO_FACT2, "freq", filename]
-        result = subprocess.run(cmd, capture_output=True, text=True)
-        cons = ete3.Tree(map_from_fact(result.stdout.replace('\n', ';')))
-        return cons, None
+        cons = fcdt(filename)
+        tm = timeit.Timer(lambda: fcdt(filename))
+        return cons, tm
     if alg == "maj_plus":
         cmd = ["./src/utils/fact1.sh", PATH_TO_FACT1, filename, "100000000"]
         result = subprocess.run(cmd, capture_output=True, text=True)
         cons = ete3.Tree(map_from_fact(result.stdout.replace('\n', ';')))
+        cons = set_cst_length(cons, 1)
         return cons, None
     
     raise ValueError(f"Unknown algorithm {alg}")
@@ -97,9 +104,9 @@ RESULTS_FILE = "outputs/eval/HS-FINAL.json" # file to output the results
 K = [10, 30, 50, 70, 90] # values for number of trees
 N = [10, 20, 30, 40, 50] # values for number of leaves
 C = [10, 7.5, 5, 2.5, 1] # values for coalescence rate
-ALGS = ["pct", "freq", "maj", "maj_plus"] # algorithms to perfoem (maj, pct, old_pct, freq)
+ALGS = ["pct", "freq", "maj", "old_pct"] # algorithms to perfoem (maj, pct, old_pct, freq)
 NB_BATCH = 5 # number of batch per combination of parameters
-BENCHMARK = 2 # number of iteration on benchmark execution time (0 for no benchmark)
+BENCHMARK = 3 # number of iteration on benchmark execution time (0 for no benchmark)
 
 
 # Execute evaluation on each parameters combinations

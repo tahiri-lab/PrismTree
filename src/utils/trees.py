@@ -77,3 +77,11 @@ def map_from_fact(tree: str) -> str:
         sub3, rep3 = f",{v},", f",{k},"
         mapped = mapped.replace(sub1, rep1).replace(sub2, rep2).replace(sub3, rep3)
     return mapped
+
+
+def set_cst_length(tree: ete3.Tree, cst):
+    tree_2 = tree.copy()
+    for node in tree_2.traverse():
+        if node.up is not None:
+            node.dist = cst
+    return tree_2

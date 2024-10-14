@@ -10,7 +10,7 @@ import shutil
 import logging
 from contextlib import contextmanager
 from itertools import product
-from utils.trees import map_to_fact
+from utils.trees import map_to_fact, LEAVES_MAP
 
 coal_pattern = re.compile(r'\[Randomly selected coalescent trees \(with generating lineage trees as comments\)\](.*?)END;', re.DOTALL)
 tree_pattern = re.compile(r'=(.*?)\n')
@@ -57,7 +57,7 @@ def generate_FACT(trees: list[str]) -> str:
     taxa_formated = []
 
     for tax in taxa:
-        taxa_formated.append(f"{leaves_map[tax]} random_taxa_{leaves_map[tax]}")
+        taxa_formated.append(f"{LEAVES_MAP[tax]} random_taxa_{LEAVES_MAP[tax]}")
     taxa_formated = sorted(taxa_formated, key = lambda x: int(x.split(" ")[0]))
     content += ",\n".join(taxa_formated) + ";\n"
 
@@ -107,7 +107,10 @@ NB_BATCH = 5 # number of batch per combination of parameters
 
 DIR_NWK = Path("datasets/eval/HS") # directory to store input files
 DIR_FACT = Path("datasets/eval/FACT") # directory to store nexus files for FACT package
-HS_PATH = "" # path to the hybridsim java program (.jar)
+HS_PATH = "/PATH/TO/hybridsim.jar" # path to the hybridsim java program (.jar)
+
+os.makedirs(DIR_NWK, exist_ok=True)
+os.makedirs(DIR_FACT, exist_ok=True)
 
 for k, n, c in product(K, N, C):
     logging.info("Generatig trees for combination k=%i n=%i c=%i.", k, n, c)
