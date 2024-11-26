@@ -20,8 +20,8 @@ default_params = """
 begin hybridsim ;
     epochs = (1);
     speciation rate = (3 ,0.5);
-    hybridization rate = (0 ,2);
-    introgression rate = 0;
+    hybridization rate = (0 ,5);
+    introgression rate = 5;
     hybridization distribution = (0.1 ,1 ,0.25 ,1 ,0.5 ,2);
     reticulation threshold = 1;
     reticulation function = linear;
@@ -100,9 +100,9 @@ def generate_hs(hs: str, k: int, n: int, c: float, n_batch: int) -> list[list[st
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-K = [130, 110, 90, 70, 50, 30, 10] # values for number of trees
+K = [150, 130, 110, 90, 70, 50, 30, 10] # values for number of trees
 N = [50, 40, 30, 20, 10] # values for number of leaves
-C = [10, 7.5, 5, 2.5, 1] # valurs for coalescence rate
+C = [1, 2.5, 5, 7.5, 10] # valurs for coalescence rate
 NB_BATCH = 5 # number of batch per combination of parameters
 
 DIR_NWK = Path("datasets/eval/HS") # directory to store input files

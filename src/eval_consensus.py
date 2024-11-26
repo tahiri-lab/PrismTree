@@ -20,7 +20,7 @@ PATH_TO_FACT1 = "src/tools/fact" #FACT compiled binary
 PATH_TO_FACT2 = "src/tools/fact2" #FACT2 compiled binary
 
 
-def consensus(filename: str, alg: list) -> tuple[ete3.Tree, timeit.Timer]:
+def consensus(filename: str, alg: list, coal:float) -> tuple[ete3.Tree, timeit.Timer]:
     """ Com pute the consensus tree from a list of input trees using the specified algorithm
 
     Args:
@@ -29,12 +29,17 @@ def consensus(filename: str, alg: list) -> tuple[ete3.Tree, timeit.Timer]:
 
     Returns:
         tuple: consensus, timit timer for benchmark
-    """
-    def fcdt(input_file):
+    """                             
+    def fcdt1(input_file):
         cmd = [PATH_TO_FACT2, "freq", input_file]
         result = subprocess.run(cmd, capture_output=True, text=True)
         cons = ete3.Tree(map_from_fact(result.stdout.replace('\n', ';')))
         return set_cst_length(cons, 1)
+    def fcdt2(input_file):
+        cmd = [PATH_TO_FACT2, "freq", input_file]
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        cons = ete3.Tree(map_from_fact(result.stdout.replace('\n', ';')))
+        return set_cst_length(cons, 1/coal)
 
     if alg == "pct":
         input_trees = read_trees(filename)
@@ -52,21 +57,25 @@ def consensus(filename: str, alg: list) -> tuple[ete3.Tree, timeit.Timer]:
         cons = phylo_to_ete3(bio_cons)
         tm = timeit.Timer(lambda: majority_consensus(input_trees, 0))
         return cons, tm
-    if alg == "freq":
-        cons = fcdt(filename)
+    if alg == "freq1":
+        cons = fcdt1(filename)
+        tm = timeit.Timer(lambda: fcdt(filename))
+        return cons, tm
+    if alg == "freq2":
+        cons = fcdt2(filename)
         tm = timeit.Timer(lambda: fcdt(filename))
         return cons, tm
     if alg == "maj_plus":
         cmd = ["./src/utils/fact1.sh", PATH_TO_FACT1, filename, "100000000"]
         result = subprocess.run(cmd, capture_output=True, text=True)
         cons = ete3.Tree(map_from_fact(result.stdout.replace('\n', ';')))
-        cons = set_cst_length(cons, 1)
+        cons = set_cst_length(cons, 1/coal)
         return cons, None
     
     raise ValueError(f"Unknown algorithm {alg}")
 
 
-def eval_consensus(alg: str, filename: str, input_trees: list[ete3.Tree], benchmark: int) -> dict:
+def eval_consensus(alg: str, filename: str, input_trees: list[ete3.Tree], benchmark: int, coal: float) -> dict:
     """ Compute consensus trees and metrics for several batches of input trees
 
     Args:
@@ -80,7 +89,7 @@ def eval_consensus(alg: str, filename: str, input_trees: list[ete3.Tree], benchm
     """
     logging.info("Processing algorithm %s", alg)
 
-    cons, tm = consensus(filename, alg)
+    cons, tm = consensus(filename, alg, coal)
     if benchmark > 0 and tm is not None:
         duration = tm.timeit(benchmark)
     else:
@@ -94,6 +103,7 @@ def eval_consensus(alg: str, filename: str, input_trees: list[ete3.Tree], benchm
         #"qdist": average_tqd(input_trees, cons, "quartet_dist"),
         "kcdist0": average_kc(input_trees, cons, 0),
         "kcdist0.5": average_kc(input_trees, cons, 0.5),
+        "kcdist1": average_kc(input_trees, cons, 1)
         #"kcdist1": average_kc(input_trees, cons, 1),
         #"duration": duration
     }
@@ -103,11 +113,11 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 INPUT_TXT = "datasets/eval/HS" # directory to take the inputs from
 INPUT_NEX = "datasets/eval/FACT" # directory to take the inputs for FACT2 algorithms
-RESULTS_FILE = "outputs/eval/HS-FINAL.json" # file to output the results
-K = [10, 30, 50, 70, 90, 110, 130] # values for number of trees
+RESULTS_FILE = "outputs/eval/HS-FINAL_Dis.json" # file to output the results
+K = [10, 30, 50, 70, 90, 110, 130, 150] # values for number of trees
 N = [10, 20, 30, 40, 50] # values for number of leaves
-C = [10, 7.5, 5, 2.5, 1] # values for coalescence rate
-ALGS = ["pct", "freq", "maj", "old_pct"] # algorithms to perfoem (maj, pct, old_pct, freq)
+C = [1, 2.5, 5, 7.5, 10] # values for coalescence rate
+ALGS = ["pct", "freq1", "maj", "old_pct", "freq2"] # algorithms to perfoem (maj, pct, old_pct, freq)
 NB_BATCH = 5 # number of batch per combination of parameters
 BENCHMARK = 0 # number of iteration on benchmark execution time (0 for no benchmark)
 
@@ -135,8 +145,8 @@ for k, n, c, b in product(K, N, C, range(NB_BATCH)):
     
     # Evaluate consensus trees
     for a in ALGS:
-        input_file = file_nex if a in ["freq", "maj_plus"] else file_txt
-        comb[a] = eval_consensus(a, input_file, input_trees, BENCHMARK)
+        input_file = file_nex if a in ["freq1", "freq2", "maj_plus"] else file_txt
+        comb[a] = eval_consensus(a, input_file, input_trees, BENCHMARK, c)
 
     combinations.append(comb)
 
